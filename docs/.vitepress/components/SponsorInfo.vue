@@ -100,27 +100,27 @@ export default {
       default: () => [
         {
           name: '微信',
-          qrCodeUrl: '/public/pay/wechat.png',
+          qrCodeUrl: '/pay/wechat.png',
           tip: '扫描二维码支持我们'
         },
         {
           name: '支付宝',
-          qrCodeUrl: '/public/pay/alipay.png',
+          qrCodeUrl: '/pay/alipay.png',
           tip: '扫描二维码支持我们'
         },
         {
           name: 'QQ',
-          qrCodeUrl: '/public/pay/qq.png',
+          qrCodeUrl: '/pay/qq.png',
           tip: '扫描二维码支持我们'
         },
         {
           name: 'USDT-BNB',
-          qrCodeUrl: '/public/pay/usdt_bnb.png',
+          qrCodeUrl: '/pay/usdt_bnb.png',
           tip: '扫描二维码支持我们'
         },
         {
           name: 'USDT-ERC20',
-          qrCodeUrl: '/public/pay/usdt_erc20.png',
+          qrCodeUrl: '/pay/usdt_erc20.png',
           tip: '扫描二维码支持我们'
         }
       ]
