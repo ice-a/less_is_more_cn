@@ -29,6 +29,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
+      { text: '总览', link: '/overview' },
       { text: '导航', link: '/00navigation' },
       { text: '题库', link: 'https://tiku.020417.xyz' },
       { text: 'muzi', link: 'https://020417.xyz' },
