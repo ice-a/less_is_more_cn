@@ -19,7 +19,8 @@
       "Bash(curl -s --connect-timeout 3 --max-time 5 https://__TRACKED_VAR__.020417.xyz)",
       "Bash(grep -rn '```' \"C:/Users/lee/Desktop/biji/less_is_more_cn/docs/\" --include=\"*.md\")",
       "Bash(grep -oP '```\\\\K[a-zA-Z]+')",
-      "Bash(grep *)"
+      "Bash(grep *)",
+      "Bash(git *)"
     ]
   }
 }
