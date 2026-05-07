@@ -1,9 +1,8 @@
 ---
-title: 导航
+title: 常用导航
 layout: doc
 ---
-<Hitokoto />
 
-<AdCarousel />
+<Hitokoto />
 
 <Navigation />

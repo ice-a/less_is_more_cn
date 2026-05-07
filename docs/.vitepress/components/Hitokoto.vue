@@ -1,80 +1,96 @@
 <template>
-  <div class="hitokoto-container">
+  <div class="hitokoto-container" @click="fetchHitokoto">
     <div class="hitokoto-content">
       <p class="hitokoto-text">{{ hitokoto }}</p>
-      <p class="hitokoto-from">—— {{ from }}</p>
+      <p class="hitokoto-from" v-if="from">—— {{ from }}</p>
+    </div>
+    <div class="hitokoto-refresh">
+      <span class="refresh-icon">↻</span>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 
-export default {
-  setup() {
-    const hitokoto = ref('正在加载一言...')
-    const from = ref('')
+const hitokoto = ref('加载中...')
+const from = ref('')
 
-    const fetchHitokoto = async () => {
-      try {
-        const response = await fetch('https://v1.hitokoto.cn/')
-        const data = await response.json()
-        hitokoto.value = data.hitokoto
-        from.value = data.from || '未知'
-      } catch (error) {
-        hitokoto.value = '生活就像海洋，只有意志坚强的人才能到达彼岸'
-        from.value = '马克思'
-      }
-    }
-
-    onMounted(() => {
-      fetchHitokoto()
-    })
-
-    return {
-      hitokoto,
-      from
-    }
+const fetchHitokoto = async () => {
+  hitokoto.value = '加载中...'
+  from.value = ''
+  try {
+    const response = await fetch('https://v1.hitokoto.cn/')
+    const data = await response.json()
+    hitokoto.value = data.hitokoto
+    from.value = data.from || ''
+  } catch {
+    hitokoto.value = '生活就像海洋，只有意志坚强的人才能到达彼岸'
+    from.value = '马克思'
   }
 }
+
+onMounted(() => {
+  fetchHitokoto()
+})
 </script>
 
 <style scoped>
 .hitokoto-container {
-  margin: 2rem 0;
-  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
   border-radius: 8px;
-  background-color: var(--vp-c-bg-soft);
-  border-left: 4px solid var(--vp-c-brand);
-  transition: all 0.3s ease;
+  background: var(--vp-c-bg-soft);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border-left: 3px solid var(--vp-c-brand);
 }
 
 .hitokoto-container:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: var(--vp-c-bg-elv);
+  transform: translateX(2px);
 }
 
 .hitokoto-content {
-  font-family: var(--vp-font-family-base);
+  flex: 1;
+  min-width: 0;
 }
 
 .hitokoto-text {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.5rem;
-  font-style: italic;
+  margin: 0;
 }
 
 .hitokoto-from {
+  font-size: 0.85rem;
+  color: var(--vp-c-text-3);
+  margin: 0.5rem 0 0;
   text-align: right;
-  font-size: 0.9rem;
-  color: var(--vp-c-text-2);
-  margin-top: 0.5rem;
 }
 
-.dark .hitokoto-container {
-  background-color: var(--vp-c-bg-soft-dark);
-  border-left-color: var(--vp-c-brand-dark);
+.hitokoto-refresh {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--vp-c-default-soft);
+  transition: background 0.25s;
+}
+
+.hitokoto-container:hover .hitokoto-refresh {
+  background: var(--vp-c-brand);
+  color: white;
+}
+
+.refresh-icon {
+  font-size: 1rem;
 }
 </style>

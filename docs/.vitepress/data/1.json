@@ -210,10 +210,10 @@
         "desc": "统计"
     },
     {
-        "name": "抽象头像",
+        "name": "头像生成器",
         "url": "https://avatar.020417.xyz",
-        "catelog": "个人站",
-        "desc": "抽象头像"
+        "catelog": "个人工具",
+        "desc": "随机头像生成服务"
     },
     {
         "name": "docker加速",
@@ -222,46 +222,46 @@
         "desc": "tools"
     },
     {
-        "name": "爬虫题库",
+        "name": "在线题库",
         "url": "https://tiku.020417.xyz",
-        "catelog": "个人站",
-        "desc": "爬虫题库"
+        "catelog": "个人工具",
+        "desc": "在线刷题平台"
     },
     {
-        "name": "CTF工具",
+        "name": "CTF工具箱",
         "url": "https://ctf.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "tools"
+        "catelog": "个人工具",
+        "desc": "CTF竞赛常用工具集合"
     },
     {
-        "name": "开发者备忘录",
+        "name": "开发速查手册",
         "url": "https://dev.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "tolls"
+        "catelog": "个人工具",
+        "desc": "Quick Reference 开发者速查表"
     },
     {
-        "name": "linux命令查询",
+        "name": "Linux命令搜索",
         "url": "https://linux.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "tolls"
+        "catelog": "个人工具",
+        "desc": "Linux命令搜索引擎，速查手册"
     },
     {
-        "name": "币安实时比特币价格",
+        "name": "实时币价",
         "url": "https://bt.020417.xyz",
-        "catelog": "个人站",
-        "desc": "币安实时比特币价格"
+        "catelog": "个人工具",
+        "desc": "实时加密货币价格追踪"
     },
     {
-        "name": "Hot热门榜单",
+        "name": "热榜聚合",
         "url": "https://hot.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "Hot热门榜单"
+        "catelog": "个人工具",
+        "desc": "各平台热搜榜单聚合"
     },
     {
-        "name": "看电视的基本都能找到",
+        "name": "影视导航",
         "url": "https://tv.020417.xyz",
-        "catelog": "个人站",
-        "desc": "联系我"
+        "catelog": "个人工具",
+        "desc": "免费影视资源导航"
     },
     {
         "name": "爱锭网",
@@ -1116,10 +1116,10 @@
         "desc": "在线 DES、3DES、AES、RC2、RC4、RC5、RC6、RSA 等加解密。"
     },
     {
-        "name": "域名探测",
+        "name": "Web探测",
         "url": "https://web.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "域名探测"
+        "catelog": "个人工具",
+        "desc": "网站信息在线检测工具"
     },
     {
         "name": "httpbin",
@@ -2838,28 +2838,28 @@
         "desc": "节点"
     },
     {
-        "name": "纯净搜索",
+        "name": "聚合搜索",
         "url": "https://search.020417.xyz",
-        "catelog": "个人站",
-        "desc": "纯净搜索"
+        "catelog": "个人工具",
+        "desc": "多引擎聚合搜索"
     },
     {
         "name": "实时新闻",
         "url": "https://new.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "实时新闻"
+        "catelog": "个人工具",
+        "desc": "NewsNow 聚合新闻"
     },
     {
-        "name": "微信公众号文章排版",
+        "name": "Markdown编辑器",
         "url": "https://md.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "微信公众号文章排版"
+        "catelog": "个人工具",
+        "desc": "微信Markdown排版编辑器"
     },
     {
         "name": "网盘",
         "url": "http://pan.020417.xyz",
-        "catelog": "个人站",
-        "desc": "tolls"
+        "catelog": "个人工具",
+        "desc": "个人网盘服务"
     },
     {
         "name": "BrightData",
@@ -3090,22 +3090,22 @@
         "desc": ""
     },
     {
-        "name": "主页",
+        "name": "个人主页",
         "url": "https://020417.xyz/",
-        "catelog": "个人站",
-        "desc": "个人主页 "
+        "catelog": "个人工具",
+        "desc": "博客与个人主页"
     },
     {
-        "name": "短链接生成",
+        "name": "个人主页",
         "url": "https://l.020417.xyz/",
-        "catelog": "个人站",
-        "desc": "短链接生成"
+        "catelog": "个人工具",
+        "desc": "博客与个人主页"
     },
     {
-        "name": "60s新闻",
+        "name": "个人主页",
         "url": "https://60.020417.xyz",
-        "catelog": "个人站",
-        "desc": "60s新闻"
+        "catelog": "个人工具",
+        "desc": "博客与个人主页"
     },
     {
         "name": "blog",
@@ -3184,5 +3184,23 @@
         "url": "https://github.com/Pyenb/macOS-ISOs",
         "catelog": "资源",
         "desc": "mac 系统镜像"
+    },
+    {
+        "name": "图床服务",
+        "url": "https://img.020417.xyz",
+        "catelog": "个人工具",
+        "desc": "Sanyue ImgHub 图片托管服务"
+    },
+    {
+        "name": "评论服务",
+        "url": "https://waline.020417.xyz/",
+        "catelog": "个人工具",
+        "desc": "Waline 评论系统"
+    },
+    {
+        "name": "访问统计",
+        "url": "https://count.020417.xyz",
+        "catelog": "个人工具",
+        "desc": "Umami 网站访问统计"
     }
 ]

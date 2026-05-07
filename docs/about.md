@@ -1,3 +1,7 @@
+---
+title: about
+---
+
 <Hitokoto />
 
 <AdCarousel />

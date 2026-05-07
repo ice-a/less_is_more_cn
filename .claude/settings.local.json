@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"01AFF与分享/\"* \"01杂记/\")",
+      "Bash(cp \"09路漫漫其修远/\"* \"01杂记/\")",
+      "Bash(cp \"03理论与实践/\"* \"01基础与环境/\")",
+      "Bash(cp \"03疑难杂症/\"* \"01基础与环境/\")",
+      "Bash(cp \"04代码与测试/\"* \"03代码与脚本/\")",
+      "Bash(mv \"01基础与环境\" \"02基础与环境\")",
+      "Bash(rm -rf \"01AFF与分享\")",
+      "Bash(rm -rf \"03理论与实践\")",
+      "Bash(rm -rf \"03疑难杂症\")",
+      "Bash(rm -rf \"04代码与测试\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python -c ' *)",
+      "Bash(nslookup -type=NS 020417.xyz)",
+      "WebSearch",
+      "WebFetch(domain:crt.sh)",
+      "Bash(curl -s --connect-timeout 3 --max-time 5 https://__TRACKED_VAR__.020417.xyz)",
+      "Bash(grep -rn '```' \"C:/Users/lee/Desktop/biji/less_is_more_cn/docs/\" --include=\"*.md\")",
+      "Bash(grep -oP '```\\\\K[a-zA-Z]+')",
+      "Bash(grep *)"
+    ]
+  }
+}

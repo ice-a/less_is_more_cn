@@ -1,7 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 import Hitokoto from '../components/Hitokoto.vue'
 import Navigation from '../components/Navigation.vue'
-import AdCarousel from '../components/AdCarousel.vue'
 import SponsorInfo from '../components/SponsorInfo.vue'
 import layout from './Layout.vue'
 import 'viewerjs/dist/viewer.min.css'
@@ -15,14 +14,11 @@ export default {
     enhanceApp({ app }) {
         app.component('Hitokoto', Hitokoto)
         app.component('Navigation', Navigation)
-        app.component('AdCarousel', AdCarousel)
         app.component('SponsorInfo', SponsorInfo)
         app.component('vImageViewer', vImageViewer)
-        // app.component('Waline', Waline)
     },
     setup() {
         const route = useRoute()
         imageViewer(route)
-    },
-    // Layout: Waline
+    }
 }
