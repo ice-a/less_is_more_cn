@@ -108,11 +108,14 @@ function firstParagraph(body) {
 }
 
 /** 站点基础地址：优先 config.mjs 的 sitemap.hostname，取不到就明确标注待补。 */
+// 站点基础地址：优先读 config.mjs 顶部的 SITE_URL 常量（部署地址的唯一来源），
+// 读不到再退回 sitemap.hostname，都没有则明确标注待填。
 function resolveBaseUrl() {
   const cfg = readFileSync(configPath, 'utf8')
-  const m = /hostname\s*:\s*['"`]([^'"`]+)['"`]/.exec(cfg)
-  const host = m ? m[1].replace(/\/+$/, '') : ''
-  return host || UNKNOWN_BASE
+  const siteUrl = /const\s+SITE_URL\s*=\s*['"`]([^'"`]+)['"`]/.exec(cfg)
+  if (siteUrl) return siteUrl[1].replace(/\/+$/, '')
+  const host = /hostname\s*:\s*['"`]([^'"`]+)['"`]/.exec(cfg)
+  return host ? host[1].replace(/\/+$/, '') : UNKNOWN_BASE
 }
 
 /** 站点标题与站点级描述。 */

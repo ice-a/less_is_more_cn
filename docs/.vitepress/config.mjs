@@ -2,7 +2,10 @@ import { writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 
 // 站点公开基础地址，与 sitemap.hostname 保持一致
-const SITE_URL = 'https://104303.xyz'
+// 站点公开基础地址。GitHub Pages 镜像部署在子路径下，
+// 因此站内资源与页面链接都要带 base 前缀。
+const SITE_URL = 'https://ice-a.github.io/less_is_more_cn'
+const SITE_BASE = '/less_is_more_cn/'
 
 // 改名前的旧路径 → 新路径。站点没有服务端重定向能力，构建时为旧路径生成跳转页。
 const REDIRECTS = {
@@ -75,8 +78,10 @@ const REDIRECTS = {
 // 写出旧路径的跳转页：meta refresh + canonical + JS 跳转
 function writeRedirectPages(outDir) {
   let count = 0
+  // 跳转目标必须带 base 前缀，否则在子路径部署下会跳到站点根目录
+  const basePrefix = SITE_BASE.replace(/\/?$/, '/')
   for (const [from, to] of Object.entries(REDIRECTS)) {
-    const target = encodeURI(to)
+    const target = encodeURI(basePrefix + to.replace(/^\//, ''))
     const file = resolve(outDir, `.${from}`)
     if (!file.startsWith(resolve(outDir))) continue
     mkdirSync(dirname(file), { recursive: true })
@@ -112,6 +117,10 @@ import { RssPlugin } from 'vitepress-plugin-rss'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  // 子路径部署：assets 与站内链接统一带 base 前缀
+  base: SITE_BASE,
+  // 生成 .html 后缀，与旧路径跳转页命名保持一致
+  cleanUrls: false,
   title: "爱喝水的木子",
   description: "存在即合理",
   ignoreDeadLinks: true,
@@ -185,7 +194,14 @@ export default defineConfig({
     }
   },
   sitemap: {
-    hostname: 'https://104303.xyz',
+    // hostname 用完整站点地址（含 base），canonical 与 RSS 保持一致
+    hostname: SITE_URL,
+    transformItems(items) {
+      return items.map((item) => ({
+        ...item,
+        url: SITE_URL.replace(/\/$/, '') + '/' + encodeURI(item.url.replace(/^\//, ''))
+      }))
+    },
   },
   lastUpdated: true,
   markdown: {
@@ -236,7 +252,7 @@ export default defineConfig({
     const siteUrl = (ctx.siteConfig.sitemap && ctx.siteConfig.sitemap.hostname) || SITE_URL
     const page = ctx.page || ''
     const path = page === 'index.md' ? '/' : '/' + page.replace(/\.md$/, '.html')
-    // 与 sitemap.xml 保持一致：中文目录与文件名按 percent-encoding 输出
+    // 与 sitemap.xml 保持一致：中文目录与文件名按 percent-encoding 输出，并补 base 前缀
     const url = siteUrl.replace(/\/$/, '') + encodeURI(path)
     const title = ctx.pageData && ctx.pageData.title
       ? `${ctx.pageData.title} | ${ctx.siteData.title}`
@@ -290,7 +306,10 @@ export default defineConfig({
       }),
       RssPlugin({
         title: 'WIKI',
-        baseUrl: 'https://104303.xyz',
+        // 插件会用 base 前缀拼条目链接，channel link 需要带 base 的完整地址
+        baseUrl: 'https://ice-a.github.io',
+        link: SITE_URL,
+        description: "存在即合理",
         copyright: `版权所有 © 2024-${new Date().getFullYear()} 爱喝水的木子[rxht]`
       })
     ]

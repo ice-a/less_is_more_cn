@@ -4,7 +4,10 @@
 
 基于 [VitePress](https://vitepress.dev/) 构建的个人技术博客，记录学习过程中的技术知识、实践经验和工具分享。
 
-在线访问：[https://104303.xyz](https://104303.xyz)
+在线访问：
+
+- GitHub Pages（当前生效）：https://ice-a.github.io/less_is_more_cn/
+- 自定义域名 `104303.xyz` 已停用（DNS 无 A 记录），恢复解析后改回 `docs/.vitepress/config.mjs` 的 `SITE_URL` / `SITE_BASE` 即可
 
 ## 内容分类
 
