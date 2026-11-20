@@ -40,6 +40,8 @@ scripts/*
 !scripts/generate-llm-txt.mjs
 # 外链巡检脚本是长期维护工具，需要入库
 !scripts/check-links.mjs
+# 构建产物与跳转页/llm.txt 一致性校验，需要入库
+!scripts/final-verify.mjs
 
 # Package manager files
 .yarn-integrity
