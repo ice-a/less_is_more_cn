@@ -198,70 +198,10 @@
         "desc": "影视网站"
     },
     {
-        "name": "4KHdr",
-        "url": "https://www.4khdr.cn/",
-        "catelog": "影视",
-        "desc": "影视网站"
-    },
-    {
-        "name": "umami统计信息",
-        "url": "https://umami.lideshan.top/",
-        "catelog": "个人站",
-        "desc": "统计"
-    },
-    {
-        "name": "头像生成器",
-        "url": "https://avatar.020417.xyz",
-        "catelog": "个人工具",
-        "desc": "随机头像生成服务"
-    },
-    {
         "name": "docker加速",
         "url": "https://github.com/dongyubin/DockerHub",
         "catelog": "工具",
         "desc": "tools"
-    },
-    {
-        "name": "在线题库",
-        "url": "https://tiku.020417.xyz",
-        "catelog": "个人工具",
-        "desc": "在线刷题平台"
-    },
-    {
-        "name": "CTF工具箱",
-        "url": "https://ctf.020417.xyz/",
-        "catelog": "个人工具",
-        "desc": "CTF竞赛常用工具集合"
-    },
-    {
-        "name": "开发速查手册",
-        "url": "https://dev.020417.xyz/",
-        "catelog": "个人工具",
-        "desc": "Quick Reference 开发者速查表"
-    },
-    {
-        "name": "Linux命令搜索",
-        "url": "https://linux.020417.xyz/",
-        "catelog": "个人工具",
-        "desc": "Linux命令搜索引擎，速查手册"
-    },
-    {
-        "name": "实时币价",
-        "url": "https://bt.020417.xyz",
-        "catelog": "个人工具",
-        "desc": "实时加密货币价格追踪"
-    },
-    {
-        "name": "热榜聚合",
-        "url": "https://hot.020417.xyz/",
-        "catelog": "个人工具",
-        "desc": "各平台热搜榜单聚合"
-    },
-    {
-        "name": "影视导航",
-        "url": "https://tv.020417.xyz",
-        "catelog": "个人工具",
-        "desc": "免费影视资源导航"
     },
     {
         "name": "爱锭网",
@@ -553,7 +493,7 @@
     },
     {
         "name": "蓝桥杯",
-        "url": "http://lx.lanqiao.cn/",
+        "url": "https://dasai.lanqiao.cn/",
         "catelog": "比赛",
         "desc": "全国软件和信息技术专业人才大赛."
     },
@@ -2629,7 +2569,7 @@
     },
     {
         "name": "MOSS",
-        "url": "https://moss.fastnlp.top/",
+        "url": "https://github.com/OpenMOSS/MOSS",
         "catelog": "AI聊天对话",
         "desc": "MOSS 是复旦大学团队开发的国内第一个发布的对话式大型语言模型，它可以执行对话生成、编程、事实问答等一系列任务，打通了让生成式语言模型理解人类意图并具有对话能力的全部技术路径。"
     },
@@ -2838,28 +2778,16 @@
         "desc": "节点"
     },
     {
-        "name": "聚合搜索",
-        "url": "https://search.020417.xyz",
-        "catelog": "个人工具",
-        "desc": "多引擎聚合搜索"
-    },
-    {
-        "name": "实时新闻",
-        "url": "https://new.020417.xyz/",
-        "catelog": "个人工具",
-        "desc": "NewsNow 聚合新闻"
-    },
-    {
         "name": "Markdown编辑器",
-        "url": "https://md.020417.xyz/",
+        "url": "https://md.lideshan.cn/",
         "catelog": "个人工具",
         "desc": "微信Markdown排版编辑器"
     },
     {
-        "name": "网盘",
-        "url": "http://pan.020417.xyz",
+        "name": "市场看板",
+        "url": "https://pan.020417.xyz/",
         "catelog": "个人工具",
-        "desc": "个人网盘服务"
+        "desc": "多数据源驱动的缠论结构与市场动量二维共振观察看板，数据仅供研究，不构成投资建议"
     },
     {
         "name": "BrightData",
@@ -3090,28 +3018,22 @@
         "desc": ""
     },
     {
-        "name": "个人主页",
+        "name": "导航门户",
         "url": "https://020417.xyz/",
         "catelog": "个人工具",
-        "desc": "博客与个人主页"
+        "desc": "渡口，从这里去别处"
     },
     {
-        "name": "个人主页",
+        "name": "短链生成器",
         "url": "https://l.020417.xyz/",
         "catelog": "个人工具",
-        "desc": "博客与个人主页"
+        "desc": "短链接生成服务"
     },
     {
         "name": "个人主页",
-        "url": "https://60.020417.xyz",
-        "catelog": "个人工具",
-        "desc": "博客与个人主页"
-    },
-    {
-        "name": "blog",
-        "url": "https://lideshan.cn",
+        "url": "https://home.020417.xyz/",
         "catelog": "个人站",
-        "desc": "blog"
+        "desc": "爱喝水的木子，存在即合理"
     },
     {
         "name": "猿人学练习平台",
@@ -3192,15 +3114,33 @@
         "desc": "Sanyue ImgHub 图片托管服务"
     },
     {
-        "name": "评论服务",
-        "url": "https://waline.020417.xyz/",
+        "name": "木子盘",
+        "url": "https://pan.lideshan.cn/",
         "catelog": "个人工具",
-        "desc": "Waline 评论系统"
+        "desc": "个人网盘服务"
     },
     {
-        "name": "访问统计",
-        "url": "https://count.020417.xyz",
+        "name": "AI 接口网关",
+        "url": "https://api.lideshan.cn/",
         "catelog": "个人工具",
-        "desc": "Umami 网站访问统计"
+        "desc": "New API 模型聚合网关，兼容 OpenAI、Claude、Gemini 接口"
+    },
+    {
+        "name": "服务器监控",
+        "url": "https://status.lideshan.cn/",
+        "catelog": "个人工具",
+        "desc": "Beszel 服务器监控面板"
+    },
+    {
+        "name": "动作图鉴",
+        "url": "https://sport.hlds.fun/",
+        "catelog": "个人工具",
+        "desc": "FitAtlas 动作图鉴，1,324 个健身动作，多语言分步说明与动画演示"
+    },
+    {
+        "name": "订阅转换",
+        "url": "https://sub.020417.xyz/",
+        "catelog": "个人工具",
+        "desc": "基于 Cloudflare 的订阅转换和管理工具"
     }
 ]

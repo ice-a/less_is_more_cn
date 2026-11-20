@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@waline/client": "^3.7.1",
     "markdown-it-mathjax3": "^4.3.2",
     "vitepress": "^2.0.0-alpha.12",
     "vitepress-sidebar": "^1.33.0",
@@ -8,8 +7,10 @@
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:build": "node scripts/generate-llm-txt.mjs && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:llm": "node scripts/generate-llm-txt.mjs",
+    "docs:links": "node scripts/check-links.mjs"
   },
   "dependencies": {
     "viewerjs": "^1.11.7",

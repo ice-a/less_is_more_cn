@@ -29,9 +29,17 @@ dist-ssr
 !.env.example
 
 # Cache
-.vitepress/cache
-.vitepress/dist
-.vitepress/data/*.json
+# 注意：这些路径带斜杠，会锚定到 .gitignore 所在目录，所以要写全 docs 前缀
+docs/.vitepress/cache
+docs/.vitepress/dist
+# docs/.vitepress/data/*.json 依赖 Navigation.vue 的静态 import，必须随仓库一起提交
+
+# 本地维护脚本（一次性排查工具，不随仓库提交）
+scripts/*
+# 但 llm.txt 生成脚本是站点构建的一部分，需要入库
+!scripts/generate-llm-txt.mjs
+# 外链巡检脚本是长期维护工具，需要入库
+!scripts/check-links.mjs
 
 # Package manager files
 .yarn-integrity

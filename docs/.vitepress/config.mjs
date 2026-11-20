@@ -1,3 +1,109 @@
+import { writeFileSync, mkdirSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+
+// 站点公开基础地址，与 sitemap.hostname 保持一致
+const SITE_URL = 'https://104303.xyz'
+
+// 改名前的旧路径 → 新路径。站点没有服务端重定向能力，构建时为旧路径生成跳转页。
+const REDIRECTS = {
+  "/01杂记/20240101_01_AFF.html": "/01杂记/20240101_01_aff推广链接收藏.html",
+  "/01杂记/20240101_01_路漫漫.html": "/01杂记/20240101_02_路漫漫.html",
+  "/01杂记/20240101_02_life.html": "/01杂记/20240101_03_生活不止眼前的苟且.html",
+  "/01杂记/20240101_02_阅读单.html": "/01杂记/20240101_04_阅读单.html",
+  "/01杂记/20240101_03_随机图api.html": "/01杂记/20240101_05_随机图api.html",
+  "/01杂记/20240101_04_bt链接.html": "/01杂记/20240101_06_种子搜索地址.html",
+  "/01杂记/20240911_01_未完继续.html": "/01杂记/20240911_01_逆向文章记录.html",
+  "/01杂记/20240101_05_fuli.html": "/01杂记/20240101_07_福利站点收藏.html",
+  "/02基础与环境/20240101_01_关于ubuntu服务器启动samba并创建不同用户组访问限制.html": "/02基础与环境/20240101_01_samba共享配置与访问控制.html",
+  "/02基础与环境/20240101_01_ubuntu启动samba并按用户组限制访问.html": "/02基础与环境/20240101_01_samba共享配置与访问控制.html",
+  "/04工具与配置/20220101_01_samba配置审计.html": "/02基础与环境/20240101_01_samba共享配置与访问控制.html",
+  "/02基础与环境/20240101_02_逛github遇到喜欢的项目但是没时间去看的解决方法.html": "/02基础与环境/20240101_02_逛github收藏项目.html",
+  "/02基础与环境/20240812_01_远程.html": "/02基础与环境/20240812_01_远程工具连接ubuntu一直100不动.html",
+  "/02基础与环境/20250801_04_linux_server_proxy.html": "/02基础与环境/20250801_04_linux代理配置.html",
+  "/03代码与脚本/20220101_01_学习的一些地址.html": "/03代码与脚本/20220101_01_学习资源地址.html",
+  "/03代码与脚本/20220101_01_针对一个文件夹里边有成千上万的文件进行分类.html": "/03代码与脚本/20220101_02_按文件类型批量分类文件夹.html",
+  "/03代码与脚本/20220101_02_SQL速查.html": "/03代码与脚本/20220101_03_sql速查.html",
+  "/03代码与脚本/20220101_03_python相见恨晚的库.html": "/03代码与脚本/20220101_04_python相见恨晚的库.html",
+  "/03代码与脚本/20230101_02_多张图片合成一张.html": "/03代码与脚本/20230101_01_多张图片合成一张.html",
+  "/03代码与脚本/20230101_03_技术文档.html": "/03代码与脚本/20230101_04_技术文档合集.html",
+  "/03代码与脚本/20230101_03_根据图片的md5值进行去重.html": "/03代码与脚本/20240528_02_根据图片md5值去重.html",
+  "/03代码与脚本/20230101_04_一些接口.html": "/03代码与脚本/20230101_05_一些接口.html",
+  "/03代码与脚本/20230101_04_音频处理.html": "/03代码与脚本/20230101_06_音频处理.html",
+  "/03代码与脚本/20230101_05_学习的几个社区.html": "/03代码与脚本/20230101_07_学习社区.html",
+  "/03代码与脚本/20230101_06_使用cv统计视频时长.html": "/03代码与脚本/20230101_08_使用opencv统计视频时长.html",
+  "/03代码与脚本/20230101_07_使用opencv将透明背景图片转变为白色背景图片.html": "/03代码与脚本/20230101_09_使用opencv转换透明背景为白色.html",
+  "/03代码与脚本/20230101_09_图片旋转摆正根据图片的exif信息.html": "/03代码与脚本/20230101_10_根据exif信息摆正图片.html",
+  "/03代码与脚本/20230101_10_图片压缩.html": "/03代码与脚本/20230101_11_图片压缩.html",
+  "/03代码与脚本/20240808_01_UserAgent处理.html": "/03代码与脚本/20240808_01_useragent处理.html",
+  "/03代码与脚本/20240813_01_模型识别接口flask.html": "/03代码与脚本/20240813_01_flask实现模型识别接口mock.html",
+  "/03代码与脚本/20250101_04_dp挂载代理使用.html": "/03代码与脚本/20250101_03_drissionpage挂载代理.html",
+  "/03代码与脚本/20250101_05_基于vad对音频进行切割.html": "/03代码与脚本/20250101_04_基于vad对音频进行切割.html",
+  "/03代码与脚本/20250101_06_ppt转pdf.html": "/03代码与脚本/20250101_05_ppt转pdf.html",
+  "/03代码与脚本/20250101_07_python常见的加解密.html": "/03代码与脚本/20250101_06_python常见的加解密.html",
+  "/03代码与脚本/20250101_07_未完待续.html": "/03代码与脚本/20250101_07_github项目收藏.html",
+  "/03代码与脚本/mysql主从同步集群搭建.html": "/03代码与脚本/20260507_01_mysql主从同步集群搭建.html",
+  "/04工具与配置/20220101_02_server安装node.html": "/04工具与配置/20220101_02_服务器安装node.html",
+  "/04工具与配置/20220101_03_server服务器安装jupyterlab.html": "/04工具与配置/20220101_03_服务器安装jupyterlab.html",
+  "/04工具与配置/20220101_05_picgo+lsky图床.html": "/04工具与配置/20220101_05_picgo-lsky图床.html",
+  "/04工具与配置/20240101_01_部署项目到vercel.html": "/04工具与配置/20240101_02_部署项目到vercel.html",
+  "/04工具与配置/20240101_02_pm2定时推送到git仓库及定时执行mongo备份.html": "/04工具与配置/20240101_03_pm2定时推送git并执行mongo备份.html",
+  "/04工具与配置/20240101_02_服务器上安装vscode远程写代码.html": "/04工具与配置/20240101_04_服务器上安装vscode远程写代码.html",
+  "/04工具与配置/20240101_03_高版本labelme格式转换为低版本格式.html": "/04工具与配置/20240101_05_高版本labelme格式转换为低版本格式.html",
+  "/04工具与配置/20240101_05_镜像站.html": "/04工具与配置/20240101_06_一些镜像站.html",
+  "/04工具与配置/20240101_06_快速构建一个新的ubuntu系统.html": "/04工具与配置/20240101_07_用multipass快速构建ubuntu环境.html",
+  "/04工具与配置/20250101_01_APIQPS限流服务.html": "/04工具与配置/20250101_01_apiqps限流服务.html",
+  "/04工具与配置/20250101_01_开发工具.html": "/04工具与配置/20250101_02_开发工具清单.html",
+  "/04工具与配置/20260302_01_OpenClaw安装与Skills配置教程.html": "/04工具与配置/20260302_01_openclaw安装与skills配置教程.html",
+  "/04工具与配置/20260313_01_OpenClaw_Skills_MCP联动作战手册.html": "/04工具与配置/20260313_01_openclaw-skills-mcp联动作战手册.html",
+  "/05爬虫与逆向/20251101_01_爬虫本地部署使用DNS Resolver.html": "/05爬虫与逆向/20251101_01_爬虫本地部署使用dnsresolver.html",
+  "/05爬虫与逆向/20251101_04_Frida 高级脚本.html": "/05爬虫与逆向/20251101_03_frida高级脚本.html",
+  "/05爬虫与逆向/20260302_00_什么是爬虫.html": "/05爬虫与逆向/20260302_01_什么是爬虫.html",
+  "/05爬虫与逆向/20260302_01_web逆向学习计划.html": "/05爬虫与逆向/20260302_02_web逆向零基础学习计划.html",
+  "/05爬虫与逆向/20260302_01_反爬虫与风控.html": "/05爬虫与逆向/20260302_03_反爬虫与风控.html",
+  "/05爬虫与逆向/20260302_02_补环境完全指南.html": "/05爬虫与逆向/20260302_04_补环境完全指南.html",
+  "/05爬虫与逆向/20260302_03_ast解混淆学习计划.html": "/05爬虫与逆向/20260302_05_ast解混淆学习计划.html",
+  "/05爬虫与逆向/20260302_04_原型链学习计划.html": "/05爬虫与逆向/20260302_06_原型链学习计划.html",
+  "/05爬虫与逆向/20260302_05_爬虫管理系统开发.html": "/05爬虫与逆向/20260302_07_爬虫管理系统开发.html",
+  "/05爬虫与逆向/20260302_08_ios逆向.html": "/05爬虫与逆向/20260302_08_ios逆向开发.html",
+  "/06AI与算法/20240101_01_tts.html": "/06AI与算法/20240101_01_tts语音合成.html",
+  "/06AI与算法/20250101_03_炼丹环境torch.html": "/06AI与算法/20250101_03_炼丹环境pytorch.html",
+  "/06AI与算法/20260302_01_逆向激进prompt.html": "/06AI与算法/20260302_02_逆向激进prompt.html",
+  "/06AI与算法/20260302_02_利用AI辅助零基础学习路径.html": "/06AI与算法/20260302_03_利用ai辅助零基础学习路径.html",
+  "/04工具与配置/20250101_02_flask实现api接口mock.html": "/03代码与脚本/20240813_01_flask实现模型识别接口mock.html",
+}
+
+// 写出旧路径的跳转页：meta refresh + canonical + JS 跳转
+function writeRedirectPages(outDir) {
+  let count = 0
+  for (const [from, to] of Object.entries(REDIRECTS)) {
+    const target = encodeURI(to)
+    const file = resolve(outDir, `.${from}`)
+    if (!file.startsWith(resolve(outDir))) continue
+    mkdirSync(dirname(file), { recursive: true })
+    writeFileSync(
+      file,
+      `<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>页面已移动</title>
+    <meta http-equiv="refresh" content="0; url=${target}" />
+    <link rel="canonical" href="${SITE_URL}${target}" />
+    <meta name="robots" content="noindex, follow" />
+  </head>
+  <body>
+    <p>这个页面已经移动到 <a href="${target}">${target}</a>。</p>
+    <script>location.replace(${JSON.stringify(target)})</script>
+  </body>
+</html>
+`,
+      'utf8'
+    )
+    count++
+  }
+  return count
+}
+
 import { defineConfig } from 'vitepress'
 import { generateSidebar } from 'vitepress-sidebar'
 import { pagefindPlugin } from "vitepress-plugin-pagefind"
@@ -11,27 +117,13 @@ export default defineConfig({
   ignoreDeadLinks: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    comment: {
-      // 设置评论提供者为Waline
-      provider: 'waline',
-      // Waline服务器URL
-      serverURL: 'https://waline.020417.xyz/',
-      // 自动跟随系统暗色模式
-      dark: 'auto',
-      // 语言设置为中文
-      lang: 'zh-CN',
-      // 每页显示10条评论
-      pageSize: 10,
-      // 评论输入框占位符
-      placeholder: '有什么想法? 来评论吧~',
-      // 必需的元数据
-      requiredMeta: ['nick', 'mail']
-    },
     nav: [
       { text: '首页', link: '/' },
       { text: '常用导航', link: '/00navigation' },
-      { text: '题库', link: 'https://tiku.020417.xyz/' },
-      { text: '关于', link: '/about' }
+      { text: 'Markdown 编辑器', link: 'https://md.lideshan.cn/' },
+      { text: '动作图鉴', link: 'https://sport.hlds.fun/' },
+      { text: '订阅转换', link: 'https://sub.020417.xyz/' },
+      { text: '关于', link: '/about' },
     ],
 
     sidebar: generateSidebar({
@@ -40,6 +132,8 @@ export default defineConfig({
       collapseDepth: 2,
       useTitleFromFrontmatter: true,
       useTitleFromFileHeading: true,
+      useFolderTitleFromIndexFile: true,
+      useFolderLinkFromIndexFile: true,
       hyphenToSpace: true,
       underscoreToSpace: true,
       excludeFiles: ['README.md'],
@@ -135,17 +229,42 @@ export default defineConfig({
           })(window, document, "clarity", "script", "txpswcwz8r");
         `,
       ]
-    ] : []),
-      
-    // Bing Webmaster Tools Meta 验证标签
-    [
-      'meta',
-      {
-        name: 'msvalidate.01',
-        content: '1234567890ABCDEF',
-      },
-    ]
+    ] : [])
   ],
+  // 统一注入 canonical / og / twitter 元数据（VitePress 内置钩子，不引入新插件）
+  transformHead(ctx) {
+    const siteUrl = (ctx.siteConfig.sitemap && ctx.siteConfig.sitemap.hostname) || SITE_URL
+    const page = ctx.page || ''
+    const path = page === 'index.md' ? '/' : '/' + page.replace(/\.md$/, '.html')
+    // 与 sitemap.xml 保持一致：中文目录与文件名按 percent-encoding 输出
+    const url = siteUrl.replace(/\/$/, '') + encodeURI(path)
+    const title = ctx.pageData && ctx.pageData.title
+      ? `${ctx.pageData.title} | ${ctx.siteData.title}`
+      : ctx.siteData.title
+    const description =
+      (ctx.pageData && (ctx.pageData.description ||
+        (ctx.pageData.frontmatter && ctx.pageData.frontmatter.description))) ||
+      ctx.siteData.description || ''
+    return [
+      ['link', { rel: 'canonical', href: url }],
+      ['meta', { property: 'og:type', content: page === 'index.md' ? 'website' : 'article' }],
+      ['meta', { property: 'og:site_name', content: ctx.siteData.title }],
+      ['meta', { property: 'og:locale', content: 'zh_CN' }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:url', content: url }],
+      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }],
+    ]
+  },
+
+  // 构建结束后为旧路径生成跳转页
+  async buildEnd(siteConfig) {
+    const count = writeRedirectPages(siteConfig.outDir)
+    siteConfig.logger.info(`legacy redirect pages: ${count}`)
+  },
+
   vite: {
     plugins: [
       pagefindPlugin({

@@ -1,12 +1,19 @@
 ---
-title: docker安装hadoop
+title: Docker 安装 Hadoop
+description: "用 Docker 部署 Hadoop，记录镜像拉取与容器启动步骤。"
 date: 2025-01-01
+category: 基础与环境
+tags:
+  - 基础与环境
+  - Docker
+  - Hadoop
+order: 11
 ---
 
-# hadoop
+## hadoop
 
-## docker-compose.yml
-```
+### docker-compose.yml
+```yaml
 services:
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
@@ -60,8 +67,8 @@ services:
     env_file:
       - ./hadoop.env
 ```
-## hadoop.env
-```
+### hadoop.env
+```text
 CORE_CONF_fs_defaultFS=hdfs://namenode:9000
 CORE_CONF_hadoop_http_staticuser_user=root
 CORE_CONF_hadoop_proxyuser_hue_hosts=*
