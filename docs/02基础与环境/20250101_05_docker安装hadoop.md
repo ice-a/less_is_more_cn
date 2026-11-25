@@ -12,6 +12,8 @@ order: 11
 
 ## hadoop
 
+下面是一份基于 `bde2020/hadoop-*` 系列镜像的 compose 示例，把 namenode、datanode、resourcemanager、nodemanager、historyserver 放在同一个 compose 项目里。
+
 ### docker-compose.yml
 ```yaml
 services:
@@ -112,4 +114,10 @@ MAPRED_CONF_mapreduce_reduce_java_opts=-Xmx6144m
 MAPRED_CONF_yarn_app_mapreduce_am_env=HADOOP_MAPRED_HOME=/data/docker-compose/hadoop-3.2.1/
 MAPRED_CONF_mapreduce_map_env=HADOOP_MAPRED_HOME=/data/docker-compose/hadoop-3.2.1/
 MAPRED_CONF_mapreduce_reduce_env=HADOOP_MAPRED_HOME=/data/docker-compose/hadoop-3.2.1/
+```
+
+### 启动
+
+```bash
+docker compose up -d
 ```

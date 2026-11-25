@@ -18,11 +18,9 @@ order: 2
 ```bash
 sudo apt remove nodejs
 sudo apt remove npm
-# 删除残留文件
-cd /usr/local/lib  -> 删除所有node和node_modules文件
-cd /usr/local/include -> 删除所有node和node_modules文件
-cd /usr/local/bin -> 删除所有node和node_modules文件
 ```
+
+再手动删除 `/usr/local/lib`、`/usr/local/include`、`/usr/local/bin` 下残留的 `node` 与 `node_modules` 文件。
 
 ## 安装
 
@@ -59,3 +57,5 @@ nvm current  # 查看当前使用的版本
 nvm alias default 22.23.5  # 设置默认版本
 nvm uninstall 22.23.5  # 卸载指定版本
 ```
+
+两套方案二选一：只需要装一个新版本、追求简单时用方法 1（NodeSource）；需要同时维护多个 Node.js 版本时用方法 2（nvm）。

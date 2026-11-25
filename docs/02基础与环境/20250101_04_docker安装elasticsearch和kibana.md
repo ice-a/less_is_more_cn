@@ -6,8 +6,7 @@ category: 基础与环境
 tags:
   - 基础与环境
   - Docker
-  - Node.js
-  - 加解密
+  - Elasticsearch
   - Linux
 order: 10
 ---
@@ -76,10 +75,11 @@ docker exec -it es01-test /usr/share/elasticsearch/bin/elasticsearch-reset-passw
 ```bash
 # 进入容器
 docker exec -it es01-test /bin/bash
--> cd bin
+# 容器内执行
+cd bin
 # 安装 IK 分词插件,版本号要和 Elasticsearch 保持一致
--> elasticsearch-plugin install --batch https://release.infinilabs.com/analysis-ik/stable/elasticsearch-analysis-ik-8.19.25.zip
--> exit
+elasticsearch-plugin install --batch https://release.infinilabs.com/analysis-ik/stable/elasticsearch-analysis-ik-8.19.25.zip
+exit
 # 重启容器
 docker restart es01-test
 ```
@@ -88,11 +88,12 @@ docker restart es01-test
 ```bash
 # 进入kibana容器
 docker exec -it kib01-test /bin/bash
--> cd config
--> echo >> kibana.yml
--> echo elasticsearch.username: "elastic" >> kibana.yml
--> echo elasticsearch.password: "YOUR_PASSWORD" >> kibana.yml
--> echo i18n.locale: "zh-CN" >> kibana.yml   # 设置中文,可以不选
+# 容器内执行
+cd config
+echo >> kibana.yml
+echo elasticsearch.username: "elastic" >> kibana.yml
+echo elasticsearch.password: "YOUR_PASSWORD" >> kibana.yml
+echo i18n.locale: "zh-CN" >> kibana.yml   # 设置中文,可以不选
 exit
 # 重启容器
 docker restart kib01-test

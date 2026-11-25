@@ -6,11 +6,12 @@ category: 代码与脚本
 tags:
   - 代码与脚本
   - Python
-order: 29
+order: 20
 ---
 
 ## 以插件的形式使用
 
+> 提示：新版 Chrome 已逐步禁用 Manifest V2 扩展，本方案在新版浏览器上可能无法加载；可改用 DrissionPage 的代理设置或系统代理。
 ```python
 #!/usr/bin/env python3  
 # -*- coding: UTF-8 -*-  
@@ -51,11 +52,11 @@ def create_proxyauth_extension(proxy_host, proxy_port, proxy_username, proxy_pas
     return plugin_folder  
   
   
-tunnelhost = 'tunnelhost'  # 隧道域名  
-tunnelport = 'tunnelport'  # 端口号  
-  
-username = 'username'  # 代理用户名  
-password = 'password'  # 代理密码  
+# 凭据从环境变量读取，不要写死在源码里
+tunnelhost = os.environ.get('PROXY_HOST', '')  # 隧道域名
+tunnelport = os.environ.get('PROXY_PORT', '')  # 端口号
+username = os.environ.get('PROXY_USER', '')    # 代理用户名
+password = os.environ.get('PROXY_PASS', '')    # 代理密码
   
 # 要访问的目标网页  
 url = 'https://dev.kdlapi.com/testproxy'  

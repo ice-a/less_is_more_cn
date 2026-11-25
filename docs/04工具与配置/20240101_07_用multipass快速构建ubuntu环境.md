@@ -6,11 +6,22 @@ category: 工具与配置
 tags:
   - 工具与配置
   - Linux
-order: 13
+order: 12
 ---
 
 ## 安装 multipass
 
 ```bash
 multipass launch jammy --name acc --cpus 2 --disk 40G --memory 4G
+```
+
+## 常用命令
+
+```bash
+multipass list                                  # 查看实例列表
+multipass shell acc                             # 进入实例终端
+multipass mount . acc:/home/ubuntu/project      # 挂载本地目录到实例
+multipass stop acc                              # 停止实例
+multipass delete acc                            # 删除实例（需配合 purge）
+multipass purge                                 # 清理已删除的实例
 ```
