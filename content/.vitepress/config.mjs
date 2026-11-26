@@ -8,10 +8,16 @@ import { CONTENT_MAP } from './content-map.mjs'
 
 // ============================================================
 // 站点基础信息（沿用旧站）
-// ============================================================
-const SITE_URL = 'https://ice-a.github.io/less_is_more_cn'
-const SITE_BASE = '/less_is_more_cn/'
-const SITE_ORIGIN = 'https://ice-a.github.io'
+// 部署到 Cloudflare Pages / 自有域名时，构建前传环境变量即可切换：
+//   CF_SITE_URL=https://example.com   （默认 GitHub Pages 地址）
+//   CF_SITE_BASE=/                    （默认 /less_is_more_cn/）
+// origin 由 SITE_URL 推导；content-map.mjs 里存的路径前缀固定为 /less_is_more_cn，
+// 下面 writeRedirectPages() 会按当前 base 归一化。
+const SITE_URL = process.env.CF_SITE_URL || 'https://ice-a.github.io/less_is_more_cn'
+const SITE_BASE = process.env.CF_SITE_BASE || '/less_is_more_cn/'
+const SITE_ORIGIN = new URL(SITE_URL).origin
+/** content-map.mjs / README.md 映射表里写死的旧前缀 */
+const OLD_PREFIX = '/less_is_more_cn'
 const YEAR = new Date().getFullYear()
 
 // ============================================================
@@ -130,10 +136,17 @@ function writeRedirectPages(outDir) {
   let count = 0
 
   const write = (fromPath, targetUrl) => {
-    // 目标地址：CONTENT_MAP 里已带 base（且已编码），旧 REDIRECTS 表里不带
-    const target = targetUrl.startsWith(SITE_BASE)
-      ? targetUrl
-      : encodeURI(basePrefix + targetUrl.replace(/^\//, ''))
+    // 目标地址：CONTENT_MAP / README 映射表里固定带 /less_is_more_cn 前缀，
+    // 旧 REDIRECTS 表里不带前缀。统一归一化到当前部署 base。
+    let target
+    if (targetUrl.startsWith(OLD_PREFIX)) {
+      const rel = targetUrl.slice(OLD_PREFIX.length).replace(/^\//, '')
+      // base 为 / 时目标从域名根开始；否则拼到子路径下
+      const root = SITE_BASE === '/' ? '/' : basePrefix
+      target = root + rel
+    } else {
+      target = encodeURI(basePrefix + targetUrl.replace(/^\//, ''))
+    }
     // 跳转页文件名统一成 .html；目录型地址写 index.html
     let outName = fromPath
     if (outName.endsWith('/')) outName += 'index.html'

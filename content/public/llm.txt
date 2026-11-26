@@ -18,6 +18,7 @@
 - [地方谐音梗](https://ice-a.github.io/less_is_more_cn/life/%E5%87%BA%E5%8E%BB%E7%8E%A9%E8%B0%90%E9%9F%B3%E6%A2%97.html): 旅行途中随手记录的地名谐音梗。
 - [生活不止眼前的苟且，还有远方的苟且](https://ice-a.github.io/less_is_more_cn/life/%E7%94%9F%E6%B4%BB%E4%B8%8D%E6%AD%A2%E7%9C%BC%E5%89%8D%E7%9A%84%E8%8B%9F%E4%B8%94.html): 生活记录：旅行见闻与还想去的地方。
 - [苏州游玩攻略](https://ice-a.github.io/less_is_more_cn/life/%E8%8B%8F%E5%B7%9E%E6%94%BB%E7%95%A5.html): 苏州游玩攻略：高铁行程、当天路线、饮食与住宿安排。
+- [路漫漫](https://ice-a.github.io/less_is_more_cn/life/%E8%B7%AF%E6%BC%AB%E6%BC%AB.html): 个人签名页：一句座右铭，加上随机一言与广告轮播组件。
 - [阅读单](https://ice-a.github.io/less_is_more_cn/life/%E9%98%85%E8%AF%BB%E5%8D%95.html): 码云（Gitee）上收藏的学习资源清单，涵盖后端学习路径、经典书籍、学习笔记与技术资料。
 - [一些镜像站](https://ice-a.github.io/less_is_more_cn/resources/%E4%B8%80%E4%BA%9B%E9%95%9C%E5%83%8F%E7%AB%99.html): 汇总 12 条与「一些镜像站」相关的链接与站点。
 - [前端 UI 库](https://ice-a.github.io/less_is_more_cn/resources/%E5%89%8D%E7%AB%AFui%E5%BA%93.html): 前端 UI 库清单，整理了 MDUI、Vant、Ant Design Vue 等库的官网与示例地址。

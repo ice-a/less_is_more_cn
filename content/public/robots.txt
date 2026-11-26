@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /.vitepress/
+Disallow: /*.md$
 
 # 搜索引擎抓取入口
 Sitemap: https://ice-a.github.io/less_is_more_cn/sitemap.xml

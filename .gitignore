@@ -43,6 +43,8 @@ scripts/*
 !scripts/final-verify.mjs
 # SEO 推送脚本由 GitHub Actions 的 seo job 调用，需要入库
 !scripts/seo-push.mjs
+# robots.txt 生成脚本随构建执行，需要入库
+!scripts/gen-robots.mjs
 
 # Package manager files
 .yarn-integrity

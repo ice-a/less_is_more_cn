@@ -75,7 +75,36 @@
 
 其他建议：Google Search Console 首次仍建议手动添加站点地图（`https://ice-a.github.io/less_is_more_cn/sitemap.xml`）；必应在 Bing Webmaster 里也可以直接「导入自 Search Console」，省去逐个提交。360 / 搜狗 / 头条目前没有稳定公开的主动推送接口，靠 robots + sitemap 自然抓取即可。
 
-## 五、已知差异（不影响使用，先说明）
+## 五、部署到 Cloudflare Pages（可选，替代 GitHub Pages）
+
+已提供 `.github/workflows/deploy-cloudflare.yml`，与 `deploy.yml` 二选一：启用 Cloudflare 时把 `deploy.yml` 的触发条件改成 `workflow_dispatch`，避免两边同时发。
+
+配置方式（不再需要改代码）：
+
+| 项 | 位置 | 值 |
+| --- | --- | --- |
+| `CLOUDFLARE_API_TOKEN` | Secrets | Cloudflare API Token（权限 `Account → Cloudflare Pages → Edit`） |
+| `CLOUDFLARE_ACCOUNT_ID` | Secrets | Cloudflare 账号 ID |
+| `CF_PAGES_PROJECT` | Variables | Pages 项目名，默认 `less-is-more-cn` |
+| `CF_SITE_URL` | Variables | 自定义域名，例如 `https://blog.example.com`；不填则用 `<project>.pages.dev` |
+| `CF_SITE_BASE` | Variables | 路径前缀，根目录部署用 `/` |
+
+构建时通过环境变量切换站点地址与 base（[config.mjs](</C:\Users\lee\Desktop\opensourcegithub\less_is_more_cn\content\.vitepress\config.mjs>) 顶部读取 `CF_SITE_URL` / `CF_SITE_BASE`，origin 由 URL 推导，`robots.txt` 由 `scripts/gen-robots.mjs` 同步生成），因此：
+
+- **自定义域名 + 根路径**：`base: '/'`，所有链接从域名根开始，旧地址跳转页目标会自动归一化（映射表里写死的 `/less_is_more_cn` 前缀会在构建时替换成当前 base）。
+- 若临时挂在 `<project>.pages.dev`（根路径）同理，`base` 仍是 `/`。
+
+手动本地验证：
+
+```powershell
+$env:CF_SITE_URL='https://blog.example.com'
+$env:CF_SITE_BASE='/'
+npm run docs:build
+```
+
+Cloudflare 侧还需注意两点：① 自定义域名要在 Pages 项目的 Custom domains 里绑定，并确认 DNS 记录为代理状态；② IndexNow 密钥文件必须出现在**站点域名根目录**（`https://你的域名/indexnow-<key>.txt`），用 pages.dev 地址申请的 key 换域名后需要重新验证。
+
+## 六、已知差异（不影响使用，先说明）
 
 - 文章里的图片仍全部是外部图床地址，没有本地化。
 - `#pic_center` 这类 VitePress 图片语法后缀在新主题下不生效。
