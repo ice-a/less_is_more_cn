@@ -19,6 +19,8 @@ const SITE_ORIGIN = new URL(SITE_URL).origin
 /** content-map.mjs / README.md 映射表里写死的旧前缀 */
 const OLD_PREFIX = '/less_is_more_cn'
 const YEAR = new Date().getFullYear()
+/** Google AdSense 发布者账号（仅生产环境使用） */
+const ADSENSE_CLIENT = 'ca-pub-8097273255284826'
 
 // ============================================================
 // @sugarat/theme 全局配置
@@ -251,13 +253,13 @@ gtag('js', new Date());`,
           // 百度搜索资源平台站点验证
           ['meta', { name: 'baidu-site-verification', content: 'codeva-3TbUdoBDVj' }],
           // Google AdSense（发布者账号关联）
-          ['meta', { name: 'google-adsense-account', content: 'ca-pub-8097273255284826' }],
+          ['meta', { name: 'google-adsense-account', content: ADSENSE_CLIENT }],
           [
             'script',
             {
               async: '',
               crossorigin: 'anonymous',
-              src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8097273255284826',
+              src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`,
             },
           ],
         ]
@@ -308,6 +310,26 @@ gtag('js', new Date());`,
       ])
     }
     return items
+  },
+
+  // 每篇文章末尾插一个「自适应智能广告」单元
+  // 主题没有 article-after-content 插槽，这里在渲染后的 HTML 上注入到 </main> 之前（正文末尾、页脚之上）
+  transformHtml(code, id, ctx) {
+    if (process.env.NODE_ENV !== 'production') return code
+    const fm = (ctx.pageData && ctx.pageData.frontmatter) || {}
+    // 首页 / 隐藏页（分类落地页、时间线、导航等）不插；单篇可用 frontmatter `adsense: false` 关闭
+    if (fm.layout === 'home' || fm.hidden || fm.adsense === false) return code
+    const unit = [
+      '<div class="adsense-auto">',
+      '<ins class="adsbygoogle" style="display:block"',
+      ` data-ad-client="${ADSENSE_CLIENT}"`,
+      ' data-ad-format="auto" data-full-width-responsive="true"></ins>',
+      '</div>',
+      '<script>(function(){try{window.adsbygoogle=window.adsbygoogle||[];',
+      'window.adsbygoogle.push({});}catch(e){}})();</script>',
+    ].join('')
+    if (code.includes('</main>')) return code.replace('</main>', unit + '</main>')
+    return code.replace('</body>', unit + '</body>')
   },
 
   themeConfig: {

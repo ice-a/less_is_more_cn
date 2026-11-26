@@ -2,3 +2,16 @@
 footer.blog-footer {
   display: none !important;
 }
+
+/* 每篇文章末尾的自适应广告位：限宽居中，避免撑满窄屏 */
+.adsense-auto {
+  margin: 32px auto 8px;
+  max-width: var(--vp-content-width, 1200px);
+  padding: 0 16px;
+  text-align: center;
+}
+
+.adsense-auto ins {
+  display: block;
+  min-height: 90px;
+}
