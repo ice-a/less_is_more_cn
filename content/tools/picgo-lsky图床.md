@@ -13,11 +13,8 @@ tags:
 - https://picgo.github.io/PicGo-Doc/zh/guide/#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85
 ### lsky 配置
 #### 选择启用接口
-![image.png](https://img.lideshan.top/i/2024/08/19/66c30db39dbeb.png)
 #### 获取 token
 使用接口管理工具获取 token
-![image.png](https://img.lideshan.top/i/2024/08/19/66c30e0838720.png)
-
 ```python
 import requests
 import json
@@ -35,9 +32,5 @@ response = requests.request("POST", url, headers=headers, data=payload)
 print(response.text)
 ```
 #### 配置 picgo
-![image.png](https://img.lideshan.top/i/2024/08/19/66c30e5f7200d.png)
 #### 填入参数
-![image.png](https://img.lideshan.top/i/2024/08/19/66c30e84c0cc0.png)
 #### Obsidian 安装插件即可
-![image.png](https://img.lideshan.top/i/2024/08/19/66c30eb2d7857.png)
-![image.png](https://img.lideshan.top/i/2024/08/19/66c30ec4d6cf7.png)

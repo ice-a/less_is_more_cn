@@ -97,7 +97,7 @@ hidden: true
 - [搜片](https://soupian.one/) —— 搜片
 - [音范丝](https://www.yinfans.me/) —— 音范丝
 - [bt影视](https://www.bttwo.me) —— 影视网站
-- [cms暴风影视](https://publish.bfzy.tv/) —— 影视网站
+- cms暴风影视 —— 影视网站
 - [cms非凡影视](http://ffzy5.tv/) —— 影视网站
 - [cms量子影视](http://lzizy.net) —— 影视网站
 - [cms牛牛影视](https://niuniuzy.cc) —— 影视网站
@@ -119,16 +119,16 @@ hidden: true
 - [Detect Headless](https://infosimples.github.io/detect-headless/) —— 无头浏览器检测
 - [Fake Vision](http://f.vision/) —— 新一代浏览器检测器
 - [Fp-Collect](https://arh.antoinevastel.com/bots/) —— 浏览器指纹检测，由 Datadome 研究主管开发
-- [gospider](https://github.com/baixudong007/gospider) —— Go 语言实现的 JA3 和 HTTP/2 指纹识别，支持 Websocket、SSE、HTTP 和 HTTPS 协议。
-- [IP Address API](https://api.incolumitas.com/) —— IP 地址查询 API
+- gospider —— Go 语言实现的 JA3 和 HTTP/2 指纹识别，支持 Websocket、SSE、HTTP 和 HTTPS 协议。
+- IP Address API —— IP 地址查询 API
 - [Pixelscan](https://pixelscan.net/) —— 一种用于检测互联网机器人的一次性解决方案
 - [Proxy/VPN Detection](https://bot.incolumitas.com/proxy_detect.html) —— 实时代理和 VPN 检测
-- [pyhttpx](https://github.com/zero3301/pyhttpx) —— 基于 socket 开发的一个网络库，支持 tls1.2/tls1.3 和 h1/h2。
+- pyhttpx —— 基于 socket 开发的一个网络库，支持 tls1.2/tls1.3 和 h1/h2。
 - [r0chrome](https://github.com/daisixuan/r0chrome) —— r0chrome 是一款对 chromium 源码进行定制的浏览器，支持浏览器随机指纹，支持爬虫/JS逆向工程师进行辅助分析网页。
 - [requests-go](https://github.com/wangluozhe/requests-go) —— requests-go 是一个支持 tls 指纹修改（如ja3）和 http2 的 http 请求库。
 - [TCP/IP Fingerprint API](https://tcpip.incolumitas.com/classify?detail=1) —— TCP/IP 指纹 API
 - [tls-client](https://github.com/FlorianREGAZ/Python-Tls-Client) —— Python-Tls-Client 是一个基于 requests 和 tls-client 的高级 HTTP 库。
-- [TLSJA3](https://tlsja3.cn/tls) —— TLS 指纹 API
+- TLSJA3 —— TLS 指纹 API
 - [TrackMe - fp API](https://tls.peet.ws/) —— TLS 指纹 API
 
 ## 自动化RPC（20）
@@ -160,7 +160,7 @@ hidden: true
 - [程序员盒子](https://www.coderutil.com/) —— 很多东西
 - [大眼仔旭](https://www.dayanzai.me/) —— 教程
 - [渐变色](https://uigradients.com/#BackToEarth) —— 精美渐变色彩，可以直接下载.
-- [识文精灵](http://ocrwiz.com/) —— 在线文字识别云服务,解决文字识别.
+- 识文精灵 —— 在线文字识别云服务,解决文字识别.
 - [网易邮箱](https://mail.qq.com/cgi-bin/frame_html?sid=up6KZlz3BGBz40wu&r=ebc72a3dc579725eb92a51a5a7d86b2f) —— 网易163免费邮箱--中文邮箱第一品牌,支持各种客户端软件收发.
 - [AST工具](https://astexplorer.net/) —— js_to_ast
 - [CODELF](https://unbug.github.io/codelf/) —— 变量命名神器.
@@ -184,7 +184,7 @@ hidden: true
 - [人人图像打码](https://www.rrocr.com/) —— 人人图像打码平台是全球领先的OCR验证码识别平台，为广大用户提供了极验验证码识别,滑动拼图，图中选字，图中选择,极验识别,云验证码识别平台,极验识别API接口,验证码,验证码识别,全自动验证码识别技术,代答题系统,云打码等服务平台, 7x24小时不间断识别,秒极速返回识别结果，超高正确率。
 - [图鉴](http://www.ttshitu.com/) —— 图鉴网络科技有限公司是一家专注于图像识别的技术企业，我们通过深度学习的人工智能分析来解决终端图像识别问题，24小时不间断全天候的为大家服务。
 - [图腾视觉](https://www.tutengocr.com/) —— 图腾视觉-专注于文字识别-目标识别-广告识别。
-- [验证码识别测试页面](http://146.56.204.113:19199/) —— 各种验证码识别测试页面。
+- 验证码识别测试页面 —— 各种验证码识别测试页面。
 - [云码](https://console.jfbym.com/register/TG17764) —— 最推荐的打码平台，云码提供：在线普通图片、滑动、点选、谷歌、Hcaptcha、数字计算题等验证码识别及验证码识别API接口服务。
 - [知数云](https://data.zhishuyun.com/) —— 用一个个标准化服务，助力你工作与生活的方方面面。支持 reCaptcha、hCaptcha 等识别，还支持 AI 图像接口等。
 - [Anti Captcha](https://anti-captcha.com/) —— 支持 hCaptcha、reCAPTCHA、FunCaptcha、Cloudflare 等平台，直接返回 token 解决方案。
@@ -253,7 +253,7 @@ hidden: true
 - [阿里云云盾](https://www.aliyun.com/activity/security/wafcaptcha) —— 阿里云验证码产品，使用业界先进的风控引擎结合“规则+AI”模型，有效区分真实用户和机器自动化脚本攻击，避免机器请求造成业务损失。
 - [顶象](https://www.dingxiang-inc.com/) —— 顶象防御云，致力于帮助企业构建自主可控的业务安全体系，通过智能无感验证码、端加固、设备指纹、实时决策、安全感知防御平台等产品解决业务欺诈威胁，防范化解各类网络黑灰产风险，让业务更加健康稳定,助力企业创新与增长。
 - [极验 GEETEST](https://www.geetest.com/) —— 极验 GEETEST，互联网交互安全创领者，利用先进AI技术，通过行为验证，身份验证，设备验证等多维验证方式，智能识别人机，帮助企业鉴别异常流量，保障企业的业务安全，移动安全和流量安全。
-- [瑞数信息](https://www.riversecurity.com/) —— 瑞数信息是中国动态安全技术的创新者和Bots自动化攻击防护领域的专业厂商，瑞数信息提供涵盖Web、App和API的全渠道应用安全、重保、业务反欺诈、数据安全、云安全等在内的专业网络安全产品及服务。
+- 瑞数信息 —— 瑞数信息是中国动态安全技术的创新者和Bots自动化攻击防护领域的专业厂商，瑞数信息提供涵盖Web、App和API的全渠道应用安全、重保、业务反欺诈、数据安全、云安全等在内的专业网络安全产品及服务。
 - [数美科技](https://www.ishumei.com/) —— 数美科技，基于先进的人工智能技术构建了全场景全流程全维度业务风控产品矩阵与秒级迭代全球SaaS AI风控服务网络，数美科技致力于为全球企业提供专业的在线业务风控服务，为在线业务增长保驾护航。
 - [腾讯防水墙](https://007.qq.com/) —— 腾讯防水墙，专注业务安全服务，用领先的人工智能技术解决业务欺诈、薅羊毛、刷单、爬虫、撞库等问题，让您的企业零投入也能有微信/QQ级别的业务安全服务。
 - [网易易盾](https://dun.163.com/) —— 网易易盾是网易旗下一站式数字内容风控品牌，依托网易20余年的技术沉淀和实践经验，提供专业的内容安全、业务安全、移动安全等服务，全方位保障客户业务合规、稳健和安全运营。
@@ -268,7 +268,7 @@ hidden: true
 
 - [awesome-reverse](https://github.com/AlienwareHe/awesome-reverse) —— awesome-逆向基础入门，包括 JS、安卓 APP/Native。
 - [Crack-JS-Spider](https://github.com/LoseNine/Crack-JS-Spider) —— JS 破解逆向，破解 JS 反爬虫加密参数。
-- [gospider](https://github.com/baixudong007/gospider) —— Gospider 是一个功能强大的 Golang 网络爬虫，包含从 Python 过渡到 Golang 所需的所有库。它为 Python 网络爬虫提供了到 Golang 的快速无缝过渡。
+- gospider —— Gospider 是一个功能强大的 Golang 网络爬虫，包含从 Python 过渡到 Golang 所需的所有库。它为 Python 网络爬虫提供了到 Golang 的快速无缝过渡。
 - [Hydra](https://github.com/HelloGitHub-Team/Hydra) —— 简单但绝不简陋的 Python3 爬虫项目，从本项目中你可以看到：熟悉的 Python 基础语法、如何编写爬虫、操作数据库、常用第三库、分析网页、解析接口、编写单元测试、mock 请求、异常监控和管理、保证代码质量的自动化、GitHub Action 等实战应用。
 - [InfoSpider](https://github.com/kangvcar/InfoSpider) —— INFO-SPIDER 是一个集众多数据源于一身的爬虫工具箱🧰，旨在安全快捷的帮助用户拿回自己的数据，工具代码开源，流程透明。
 - [js_reverse](https://github.com/luzhisheng/js_reverse) —— 各种 JS 逆向案例。
@@ -284,7 +284,7 @@ hidden: true
 
 - [Burp Suite](https://portswigger.net/burp) —— Burp Suite 是用于攻击 web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。
 - [Charles](https://www.charlesproxy.com/) —— Charles 抓包工具，又被戏称为尿壶、夜壶。
-- [Drony](https://play.google.com/store/apps/details?id=org.sandrob.drony) —— 一个允许您从移动设备管理所有代理的工具。
+- Drony —— 一个允许您从移动设备管理所有代理的工具。
 - [eCapture](https://ecapture.cc/) —— eCapture(旁观者)，基于 eBPF 技术实现TLS加密的明文捕获，无需CA证书。
 - [Fiddler](https://www.telerik.com/fiddler) —— Fiddler Classic 免费抓包工具，仅支持 Windows，Fiddler Everywhere 收费抓包工具，支持 MacOS, Windows 和 Linux。
 - [Http Debugger](https://www.httpdebugger.com/) —— Http Debugger 抓包工具，易于使用、简洁的用户界面和较短的启动时间。
@@ -376,14 +376,14 @@ hidden: true
 
 - [导航门户](https://020417.xyz/) —— 渡口，从这里去别处
 - [订阅转换](https://sub.020417.xyz/) —— 基于 Cloudflare 的订阅转换和管理工具
-- [动作图鉴](https://sport.hlds.fun/) —— FitAtlas 动作图鉴，1,324 个健身动作，多语言分步说明与动画演示
+- 动作图鉴 —— FitAtlas 动作图鉴，1,324 个健身动作，多语言分步说明与动画演示
 - [短链生成器](https://l.020417.xyz/) —— 短链接生成服务
 - [服务器监控](https://status.lideshan.cn/) —— Beszel 服务器监控面板
 - [木子盘](https://pan.lideshan.cn/) —— 个人网盘服务
 - [市场看板](https://pan.020417.xyz/) —— 多数据源驱动的缠论结构与市场动量二维共振观察看板，数据仅供研究，不构成投资建议
 - [图床服务](https://img.020417.xyz) —— Sanyue ImgHub 图片托管服务
 - [AI 接口网关](https://api.lideshan.cn/) —— New API 模型聚合网关，兼容 OpenAI、Claude、Gemini 接口
-- [Markdown编辑器](https://md.lideshan.cn/) —— 微信Markdown排版编辑器
+- Markdown编辑器 —— 微信Markdown排版编辑器
 - [Web探测](https://web.020417.xyz/) —— 网站信息在线检测工具
 
 ## AI图像绘画（11）
@@ -393,7 +393,7 @@ hidden: true
 - [Adobe Firefly](https://firefly.adobe.com/) —— Firefly 是 Adobe 推出的创意生成式 AI，允许内容创作者使用自己的文字来生成图像、音频、插图、视频和3D图像。
 - [AI 艺术二维码](https://qr.mewx.art/?invite_code=RVP98wzb) —— 使用 MewXAI星月熊 在几秒内创建令人惊叹的下一代艺术二维码和艺术字。 从此告别单调的黑白二维码和文字，留下令人深刻的印象！
 - [Civitai](https://civitai.com/) —— Civitai 是一个 AI 艺术共享平台！海量 SD 开源模型，海量绘画模型。
-- [DALL·E](https://labs.openai.com/) —— DALL·E 是 OpenAI 公司发布的一个用文本生成图像的模型，它是 GPT-3 的一个版本，经过文本-图像数据集训练，具有 120 亿参数，可以从文本描述生成图像。DALL·E 能够创建拟人化的动物和物体，以合理的方式组合不相关的概念，渲染文本，以及对现有图像进行转换。
+- DALL·E —— DALL·E 是 OpenAI 公司发布的一个用文本生成图像的模型，它是 GPT-3 的一个版本，经过文本-图像数据集训练，具有 120 亿参数，可以从文本描述生成图像。DALL·E 能够创建拟人化的动物和物体，以合理的方式组合不相关的概念，渲染文本，以及对现有图像进行转换。
 - [Faceswap](https://faceswap.dev/) —— FaceSwap 是一个利用深度学习来识别图片和视频中的人脸，并进行变换人脸的工具。
 - [jpgHD](https://jpghd.com/) —— 人工智能老照片无损修复，利用2023年最先进人工智能 AI 将老照片无损高清修复（支持老照片修复、老照片上色和魔法动态照片）
 - [MakeLogoAI](https://makelogo.ai/) —— AI logo 生成，为您的项目生成漂亮的徽标。每个标志都是独一无二的，100%由人工智能生成。在几分钟内获得数十个令人惊叹的标志创意。
@@ -411,7 +411,7 @@ hidden: true
 - [协采云](http://clue.xiecaiyun.com/reg/?channel=Y-wt-bob) —— 协采云九年深耕，百万级代理节点，自由调度！资源分池，客户间物理隔离，互不干扰！深度定制，代理池私有化部署，安全灵活！
 - [因体技术](https://iinti.cn/) —— 马莲妮亚（Malenia）代理IP资源中台系统，配合 MITM 中间人攻击脚本无视加密进行数据采集，梅祖拉（majora）代理IP建设系统，更适合爬虫工程师的解决方案。
 - [云立方](https://www.yunlifang.cn/) —— 云立方是动态vps,拔号vps,adsl拔号服务器,代理ip,动态ip,天翼云,阿里云,腾讯云,华为云, 高防服务器提供商,高性价比vps服务器,静态云,云,vps,vps就找云立方!
-- [芝麻 HTTP](http://www.zmhttp.com/?utm-source=yl&utm-keyword=?07) —— 芝麻HTTP代理是企业大数据爬取HTTP动态IP服务提供商,为上百家企业用户提供海量优质高匿HTTP代理IP,全国自建数百所机房,低延迟高可用率稳定专业！
+- 芝麻 HTTP —— 芝麻HTTP代理是企业大数据爬取HTTP动态IP服务提供商,为上百家企业用户提供海量优质高匿HTTP代理IP,全国自建数百所机房,低延迟高可用率稳定专业！
 
 ## 交流论坛（10）
 
@@ -429,7 +429,7 @@ hidden: true
 ## AFF（10）
 
 - [11刀一年2g的vps](https://cloud.colocrossing.com/aff.php?aff=1191&pid=95) —— 11刀一年的机器
-- [币安](https://www.maxweb.academy/referral/earn-together/refer-in-hotsummer/claim?hl=zh-CN&ref=GRO_20338_5WPY8&utm_source=default) —— btc
+- 币安 —— btc
 - [火币](https://www.htx.com.de/invite/zh-cn/1f?invite_code=airs8223) —— btc
 - [流量卡](https://www.hemorn.cn/index?k=bzBzYWFuSDkvYXM9) —— 流量卡很多
 - [流量卡](https://h5.lot-ml.com/ProductEn/Index/00de96ec16cfec53) —— 流量卡_比较多卡
@@ -486,7 +486,7 @@ hidden: true
 - [优设导航](https://hao.uisdc.com/) —— 为设计师精选国内外优质网站.
 - [HiPPTer](http://www.hippter.com/) —— PPT设计相关网站,提供创意灵感等.
 - [iTab](https://www.itab.link/) —— 个性化卡片式起始页插件.
-- [LKs](https://xiangjianan.gitee.io/lks/) —— B站博主 -LKs- 《良心到难以置信的网站推荐》.
+- LKs —— B站博主 -LKs- 《良心到难以置信的网站推荐》.
 - [seeseed](https://www.seeseed.com/) —— 无穷尽设计可能,提供设计灵感.
 
 ## 监控管理（8）
@@ -504,8 +504,8 @@ hidden: true
 
 - [开发者所需软件合集](https://pan.baidu.com/s/1uoJqW12v-o3JfdQdqOP1Mw?pwd=r2ue) —— 开发者需要的常用软件
 - [免费小火箭地址](https://id.jincaii.com/) —— 免费小火箭地址icloudid
-- [免费小火箭地址](https://44s4shadowrockurl.44s4.site/) —— 免费小火箭地址icloudid
-- [免费小火箭地址](https://hwaihao.com/appleid/) —— 免费小火箭地址icloudid
+- 免费小火箭地址 —— 免费小火箭地址icloudid
+- 免费小火箭地址 —— 免费小火箭地址icloudid
 - [免费小火箭地址](https://id.jincaii.com/) —— 免费小火箭地址icloudid
 - [免费小火箭地址](https://ccbaohe.com/appleID/) —— 免费小火箭地址icloudid
 - [免费小火箭地址](https://pg.xxjiajia.com/) —— 免费小火箭地址icloudid
@@ -581,7 +581,7 @@ hidden: true
 - [网洛者反反爬虫练习平台](https://wangluozhe.com/) —— 网洛者 - 反反爬虫练习，平台完全免费公开的，有意者可以直接进入平台进行练习和玩耍，欢迎各位大佬的入驻和使用！
 - [猿人学练习平台](https://www.python-spider.com/challenge/) —— 猿人学练习平台
 - [Scrape Center](https://scrape.center/) —— 崔庆才《Python3网络爬虫开发实战（第二版）》配套案例练习平台。
-- [TLS 指纹对抗练习平台](https://tlsja3.cn/) —— TLS 指纹对抗练习平台
+- TLS 指纹对抗练习平台 —— TLS 指纹对抗练习平台
 
 ## 推广（5）
 

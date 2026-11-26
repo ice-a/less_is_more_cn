@@ -319,7 +319,7 @@ tags:
 - [mutagen](https://github.com/lazka/mutagen)：一个用来处理音频元数据的 Python 模块。
 - [pydub](https://github.com/jiaaro/pydub)：通过简单、简洁的高层接口来操作音频文件。
 - [pyechonest](https://github.com/echonest/pyechonest)：Echo Nest API 的 Python 客户端。
-- [talkbox](http://scikits.appspot.com/talkbox)：一个用来处理演讲/信号的 Python 库。
+- talkbox：一个用来处理演讲/信号的 Python 库。
 - [TimeSide](https://github.com/Parisson/TimeSide)：开源 web 音频处理框架。
 - [tinytag](https://github.com/devsnd/tinytag)：一个用来读取 MP3, OGG, FLAC 以及 Wave 文件音乐元数据的库。
 - [mingus](http://bspaans.github.io/python-mingus/)：一个高级音乐理论和曲谱包，支持 MIDI 文件和回放功能。
@@ -948,7 +948,7 @@ Web socket 相关库。
     - [coverage](https://pypi.python.org/pypi/coverage)：代码覆盖率测量。
     - [Codecov](https://codecov.io/)：一个代码覆盖率测试工具，为开源项目提供免费代码覆盖率测试服务。
 - 伪数据
-    - [faker](http://www.joke2k.net/faker/)：一个 Python 库，用来生成伪数据。
+    - faker：一个 Python 库，用来生成伪数据。
     - [fake2db](https://github.com/emirozer/fake2db)：伪数据库生成器。
     - [mimesis](https://github.com/lk-geimfari/mimesis)：一个帮助你生成伪数据的 Python 库。
     - [radar](https://pypi.python.org/pypi/radar)：生成随机的日期/时间。

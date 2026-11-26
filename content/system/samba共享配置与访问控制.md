@@ -46,8 +46,6 @@ smbpasswd -a useradmin2
 
 ### 在这个位置
 
-![](https://lideshan.cn/zb_users/upload/2022/05/202205271057358974598.png)
-
 ### 添加以下信息
 
 ```text

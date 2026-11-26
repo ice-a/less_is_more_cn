@@ -58,6 +58,7 @@
 | 首页标签 | ✅ `homeTags: true`。 |
 | 站外导航 | ✅ 仅保留「订阅转换」（https://sub.020417.xyz/），其余两项已移除。 |
 | 统计脚本 | ✅ Google Tag Manager `{{SECRET_9efjwufx}}` + Microsoft Clarity `zjk1n98mr2`（仅生产环境注入）；Bing 不挂 UET/msvalidate，收录走 IndexNow。 |
+| 站点验证 | ✅ 百度搜索资源平台 `baidu-site-verification=codeva-3TbUdoBDVj`（仅生产注入）。需要 Google / 必应的验证 meta 时按同样方式加一行即可。 |
 | RSS | ✅ 随构建生成 `feed.rss`（隐藏页除外）。 |
 | 右侧推荐栏 | ✅ 保留主题默认。 |
 | 部署 | ✅ 只用 Cloudflare Pages 连 GitHub 仓库构建（见第五节）；`.github/workflows/` 下只保留 `seo-daily.yml`。 |

@@ -248,6 +248,8 @@ gtag('js', new Date());`,
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "zjk1n98mr2");`,
           ],
+          // 百度搜索资源平台站点验证
+          ['meta', { name: 'baidu-site-verification', content: 'codeva-3TbUdoBDVj' }],
         ]
       : []),
   ],

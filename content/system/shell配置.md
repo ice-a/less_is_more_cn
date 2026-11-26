@@ -28,8 +28,7 @@ source ~/.zshrc
 	- 根据历史命名进行填充
 	- `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
 	- 编辑 zshrc 添加插件
-	- `vim ~/.zshrc`  ![image.png](http://doc.lideshan.top/media/202405/2024-05-31_105016_5585980.6764067161679452.png)
-	- 重新加载配置 `source ~/.zshrc`
+	- `vim ~/.zshrc`  - 重新加载配置 `source ~/.zshrc`
 	- 修改配置字体改亮
 	- `cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions`
 	- `vim zsh-autosuggestions.zsh`
