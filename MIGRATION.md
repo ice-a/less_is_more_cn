@@ -121,3 +121,19 @@ Cloudflare 控制台创建 Pages 项目时选「连接到 Git」，按下表填�
 - 旧的 `order` 排序字段已移除，列表顺序由主题按日期/置顶规则生成。
 - 主题基于 Element Plus，前端体积比原来的裸 VitePress 大一些。
 - 12 个功能页（4 个单页 + 9 个分组索引）标记为 `hidden`，不出现在文章列表和 RSS 里。
+
+## 七、性能优化（2026-11-26，PageSpeed Insights 移动端 0.78 → 0.87~0.88）
+
+在 [config.mjs](</C:\Users\lee\Desktop\opensourcegithub\less_is_more_cn\content\.vitepress\config.mjs>) 里做的改动：
+
+| 优化 | 说明 |
+| --- | --- |
+| 头像本地化 | `home.logo` 从 GitHub avatars 外链改为 `content/public/avatar.png`（260px / 3.8KB），消除首屏外部图片请求；首页 `transformHead` 再 preload 该图 |
+| 预连接 | head 增加 clarity.ms / googletagmanager.com / pagead2.googlesyndication.com 的 `preconnect`，doubleclick 走 `dns-prefetch` |
+| 关闭全路由预加载 | `shouldPreload: () => false`，避免 VitePress 把 88 篇文章的 chunk 全部 modulepreload |
+| 首页背景压缩 | buildEnd 把主题 90KB 的 `bg.webp` 换成 `content/public/bg-home.webp`（54KB）并删掉原文件 |
+
+试过但回退（没有收益或更差）：延后 GTM/Clarity/AdSense 到 load 之后、改用系统字体栈 / 删除 Inter webfont——两项都会让 LCP 明显变差。
+
+剩余的大头是第三方脚本（GTM/AdSense/Clarity 约 300KB）与主题框架的 hydration，属于主题的固有成本；要再往上走只能裁剪主题功能（例如关掉搜索、去掉 Element Plus 相关组件）。
+

@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { defineConfig } from 'vitepress'
 import { getThemeConfig } from '@sugarat/theme/node'
@@ -45,8 +45,9 @@ const blogTheme = getThemeConfig({
     ],
     inspiringTimeout: 4000,
     pageSize: 10,
-    // 用 GitHub 账号头像作为站点 logo
-    logo: 'https://avatars.githubusercontent.com/ice-a',
+    // 用 GitHub 账号头像作为站点 logo（已下载到 content/public/avatar.png，
+    // 本地加载更快，也不再依赖 GitHub 图床的缓存策略）
+    logo: `${SITE_BASE}avatar.png`,
   },
 
   // 首页按标签聚合的入口
@@ -205,6 +206,12 @@ export default defineConfig({
   // README.md 是迁移说明，不作为页面输出
   srcExclude: ['**/README.md'],
 
+  // 不做「全页面预加载」：VitePress 默认会把所有路由的 JS/CSS chunk 以
+  // modulepreload 塞进每个页面，88 篇文章会让首屏多出几十个请求，
+  // 明显拖慢移动端（Lighthouse 的 unused-javascript / TBT）。
+  // 关闭后只在真正跳转时按需加载目标页。
+  shouldPreload: () => false,
+
   lastUpdated: true,
 
   // 可选：隐藏首页底部的「博客信息」整块（统计 + 置顶文章 + 友链 + 标签）
@@ -229,6 +236,11 @@ export default defineConfig({
   // 生产环境注入统计脚本；开发环境不加载
   head: [
     ['meta', { name: 'robots', content: 'index, follow, max-image-preview:large' }],
+    // 第三方域名提前建连，减少首屏请求的 DNS/TLS 往返（Lighthouse「预连接」项）
+    ['link', { rel: 'preconnect', href: 'https://www.clarity.ms', crossorigin: '' }],
+    ['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com', crossorigin: '' }],
+    ['link', { rel: 'preconnect', href: 'https://pagead2.googlesyndication.com', crossorigin: '' }],
+    ['link', { rel: 'dns-prefetch', href: 'https://securepubads.g.doubleclick.net' }],
     ...(process.env.NODE_ENV === 'production'
       ? [
           // Google Tag Manager（{{SECRET_9efjwufx}}）
@@ -252,7 +264,7 @@ gtag('js', new Date());`,
           ],
           // 百度搜索资源平台站点验证
           ['meta', { name: 'baidu-site-verification', content: 'codeva-3TbUdoBDVj' }],
-          // Google AdSense（发布者账号关联）
+          // Google AdSense（发布者账号关联 + 加载器，async 不阻塞解析）
           ['meta', { name: 'google-adsense-account', content: ADSENSE_CLIENT }],
           [
             'script',
@@ -309,6 +321,10 @@ gtag('js', new Date());`,
         }),
       ])
     }
+    // 首页 LCP 元素就是这张头像，预加载可以把 LCP 提前几百毫秒
+    if (page === 'index.md') {
+      items.push(['link', { rel: 'preload', as: 'image', href: `${SITE_BASE}avatar.png` }])
+    }
     return items
   },
 
@@ -345,9 +361,33 @@ gtag('js', new Date());`,
     lastUpdated: { text: 'Last Updated', formatOptions: { dateStyle: 'full', timeStyle: 'medium' } },
   },
 
-  // 构建结束后生成旧地址跳转页
+  // 构建结束后生成旧地址跳转页，并做两项产物级优化：
+  //   1) 把主题自带首页背景 bg.webp（650×613，90KB）换成压缩版 bg-home.webp（325×307，54KB）
+  //   2) 删除已无引用的原始背景图，避免白传流量
   async buildEnd(siteConfig) {
-    const count = writeRedirectPages(siteConfig.outDir)
+    const outDir = siteConfig.outDir
+
+    const bgRe = /url\((['"]?)(?:\/less_is_more_cn)?\/assets\/bg\.[A-Za-z0-9_-]+\.webp\1\)/g
+    let cssHits = 0
+    for (const name of readdirSync(resolve(outDir, 'assets'))) {
+      if (!name.endsWith('.css')) continue
+      const file = resolve(outDir, 'assets', name)
+      const css = readFileSync(file, 'utf8')
+      if (!bgRe.test(css)) continue
+      writeFileSync(file, css.replace(bgRe, `url(${SITE_BASE}bg-home.webp)`), 'utf8')
+      cssHits++
+    }
+
+    let removed = 0
+    for (const name of readdirSync(resolve(outDir, 'assets'))) {
+      if (/^bg\.[A-Za-z0-9_-]+\.webp$/.test(name)) {
+        rmSync(resolve(outDir, 'assets', name))
+        removed++
+      }
+    }
+    siteConfig.logger.info(`home bg optimized: ${cssHits} css, ${removed} unused asset removed`)
+
+    const count = writeRedirectPages(outDir)
     siteConfig.logger.info(`redirect pages: ${count}`)
   },
 
@@ -358,5 +398,6 @@ gtag('js', new Date());`,
       ...(blogTheme.vite?.ssr || {}),
       noExternal: ['@sugarat/theme', 'vitepress-plugin-product-card'],
     },
+    plugins: [...(blogTheme.vite?.plugins || [])],
   },
 })
