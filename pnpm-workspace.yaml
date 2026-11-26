@@ -1,2 +1,7 @@
+# 允许依赖执行构建脚本（sharp 需要下载/编译二进制）
+# pnpm 10+ 读 onlyBuiltDependencies；pnpm 12 读 allowBuilds，两个都写保证兼容
+onlyBuiltDependencies:
+  - sharp
+
 allowBuilds:
-  sharp: set this to true or false
+  sharp: true
