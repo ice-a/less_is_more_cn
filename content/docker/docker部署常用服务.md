@@ -1,0 +1,148 @@
+---
+title: Docker 部署常用服务
+description: "用 Docker 部署 MongoDB、Neo4j、Redis、PostgreSQL 的常用命令，以及容器重启策略与镜像加速配置。"
+date: 2025-01-01
+tags:
+  - 基础与环境
+  - Docker
+  - 数据库
+---
+## MongoDB
+
+### 拉取镜像
+
+```bash
+docker pull mongo:9.0
+# 视网络情况，快的话几秒就可以拉取，慢的话几分钟
+```
+
+### 创建数据卷
+
+```bash
+docker volume create --name mongodata
+# 删除数据卷
+docker volume rm mongodata
+```
+
+### 启动容器（挂载数据卷）
+
+```bash
+docker run -p 27017:27017 --name=mongodb -v mongodata:/data/db -d mongo
+```
+
+### Windows 指定宿主数据目录
+
+```bash
+docker run --rm --name mongo -d -p 27017:27017 -v D:\Mongodb\master\data:/data/db mongo:9.0
+```
+
+容器被误删后数据卷还在，用上面的命令重建容器即可恢复数据。
+
+## Neo4j
+
+### docker-compose.yaml
+
+```yaml
+version: "3"
+services:
+  neo4j:
+    image: neo4j
+    volumes:
+      - ./db/neo4j/conf:/var/lib/neo4j/conf:rw
+      - ./db/neo4j/mnt:/var/lib/neo4j/import:rw
+      - ./db/neo4j/plugins:/plugins:rw
+      - ./db/neo4j/data:/data:rw
+      - ./db/neo4j/logs:/var/lib/neo4j/logs:rw
+    restart: always
+    ports:
+      - 7474:7474
+      - 7687:7687
+    environment:
+      - NEO4J_dbms_memory_heap_maxSize=4G
+      - NEO4J_AUTH=neo4j/123456 # 示例密码，正式环境请修改
+```
+
+### docker run
+
+```bash
+docker run --publish=7474:7474 --publish=7687:7687 --name neo4j -d neo4j:5.26-community
+```
+
+## Redis
+
+### 拉取镜像
+
+```bash
+docker pull redis:8.8-alpine
+```
+
+### 启动容器
+
+```bash
+docker run --name some-redis -p 6379:6379 -d redis:8.8-alpine
+```
+
+### 注意
+
+- 不写 tag 会拉到 `latest`，版本随上游漂移，写进脚本时最好固定版本号。
+- 8.x 的 `alpine` 镜像体积小，适合本地开发；生产环境建议用官方 Debian 基础镜像。
+
+## PostgreSQL
+
+```bash
+docker run -d -p 5432:5432 --name postgresql -v pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=YOUR_PASSWORD postgres:18
+```
+
+## 容器重启策略
+
+### 创建时指定
+
+```bash
+docker run -d --restart=always --name 容器名 使用的镜像
+```
+
+`--restart` 取值说明：
+
+- `no`：默认策略，容器退出时不重启
+- `on-failure`：容器非正常退出（退出状态码非 0）时才重启
+- `on-failure:3`：同上，最多重启 3 次
+- `always`：无论退出状态如何都重启
+- `unless-stopped`：总是重启，但不包括 Docker 守护进程启动时就已停止的容器
+
+### 修改已有容器
+
+```bash
+docker update --restart=always 容器ID
+# 容器ID 也可以替换成容器名
+```
+
+## Docker 镜像加速
+
+编辑 `/etc/docker/daemon.json`：
+
+```json
+{
+  "builder": {
+    "gc": {
+      "defaultKeepStorage": "20GB",
+      "enabled": true
+    }
+  },
+  "experimental": false,
+  "registry-mirrors": [
+    "https://registry.hub.docker.com",
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://mirror.baidubce.com",
+    "https://docker.mirrors.sjtug.sjtu.edu.cn",
+    "https://docker.nju.edu.cn"
+  ]
+}
+```
+
+改完重启服务生效：`sudo systemctl daemon-reload && sudo systemctl restart docker`。
+
+## 相关笔记
+
+- [Docker 安装 Elasticsearch 和 Kibana](./docker安装elasticsearch和kibana.md)
+- [Docker 安装 Hadoop](./docker安装hadoop.md)
+- [Docker 一些 demo](./docker一些demo.md)

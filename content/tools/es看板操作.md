@@ -1,0 +1,94 @@
+---
+title: ES 看板操作
+description: "Elasticsearch 常用查询命令速查：查看索引、统计文档、集群健康状态与节点信息。"
+date: 2025-01-01
+tags:
+  - 工具与配置
+---
+## 获取全部的 index
+GET _cat/indices?v
+
+## 统计 index
+GET _cat/count/car_taipingyang_info/?v
+
+## 查看集群健康状态
+GET _cat/health
+## 查看集群健康状态 详细信息
+GET _cat/health?v
+
+## 查看节点信息及详细信息
+GET _cat/nodes
+
+GET _cat/nodes?v
+
+## 查看 es 的 index 信息及详细信息
+GET _cat/indices
+GET _cat/indices?v
+
+## 创建 index 及 type
+
+> 版本说明：Elasticsearch 7.x 起已移除 mapping type，下面 `test_type3` 以及 URL 中的类型段只适用于 6.x 及更早版本；7.x+ 请直接用 `PUT /索引名` + `mappings.properties`。
+
+### put（暂时有问题）
+```json
+PUT /car_test_info
+{
+  "mappings": {
+    "test_type3" : {
+      "properties" : {
+        "id" : {"type" : "long"},
+        "username" : {"type" : "text"},
+        "password" : {"type" : "text"},
+        "age" : {"type" : "integer"}
+      }
+    }
+  }
+}
+```
+
+### post（测试 OK）
+```json
+POST /car_test_info_post/car_detail
+{
+  "properties" : {
+    "id" : {"type" : "long"},
+    "username" : {"type" : "text"},
+    "password" : {"type" : "text"},
+    "age" : {"type" : "integer"}
+  }
+}
+```
+
+## 查询 type 类型
+GET /car_test_info_post/_mapping
+
+## 在 type 中添加数据
+
+### put(OK)
+```json
+PUT /car_test_info_post/car_detail/1
+{
+  "id": 22,
+  "username": "zhangsan",
+  "password": "666",
+  "age": 1
+}
+```
+
+### post
+```json
+POST /car_test_info_post/car_detail
+{
+  
+    "id" : 220,
+    "username" :"zhangsan02" ,
+    "password" : "6669999",
+    "age" : 100
+}
+```
+
+## 查看数据
+GET /car_test_info_post/car_taipingyang_info
+## 修改数据
+## 删除数据
+DELETE /car_test_info_post/car_detail/10

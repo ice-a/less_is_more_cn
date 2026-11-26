@@ -1,0 +1,41 @@
+---
+title: PPT 转 PDF
+description: "把 PPT 文件转换成 PDF 的脚本与依赖说明。"
+date: 2025-01-01
+tags:
+  - 代码与脚本
+  - Python
+  - 图像处理
+---
+> 环境前提：需要在 Windows 上通过 COM 调用本机安装的 Microsoft Office（PowerPoint）。
+
+```python
+import win32com.client
+import os
+def ppt2pdf(filename, output_filename):
+    """
+    PPT文件导出为pdf格式
+    :param filename: PPT文件的名称
+    :param output_filename: 导出的pdf文件的名称
+    :return:
+    """
+    ppt_app = win32com.client.Dispatch('PowerPoint.Application')
+    # ppt_app.Visible = True  # 程序操作应用程序的过程是否可视化
+    ppt = ppt_app.Presentations.Open(filename)
+    # 17数字是ppt转图片，32数字是ppt转pdf
+    ppt.SaveAs(output_filename, 32)
+    print("导出成pdf格式成功!!!")
+    # 退出PPT程序
+    ppt_app.Quit()
+
+# 要处理的目录名称
+dirname = r"输入目录"  # 待转换 PPT 所在目录，不能为空字符串
+filenames = os.listdir(dirname)
+for filename in filenames:
+    if filename.endswith('ppt') or filename.endswith('pptx'):
+        base, ext = filename.rsplit('.', 1)  # 多点文件名（如 a.v1.pptx）也能正确拆分
+        new_name = base + '.pdf'
+        filename = os.path.join(dirname, filename)
+        output_filename = os.path.join(dirname, new_name)
+        ppt2pdf(filename, output_filename)
+```

@@ -1,0 +1,54 @@
+---
+title: FFmpeg 推流直播
+description: "用 FFmpeg 推流到 B 站直播的完整步骤，包含推流地址获取、后台运行与常用参数。"
+date: 2024-01-01
+tags:
+  - 代码与脚本
+  - FFmpeg
+  - Git
+  - Linux
+---
+## 安装 ffmpeg
+```bash
+ubuntu
+sudo apt update
+sudo apt install ffmpeg
+ffmpeg -version  # 查看版本
+
+centos / rhel
+# 先启用仓库
+sudo dnf install -y epel-release
+sudo dnf install -y ffmpeg
+ffmpeg -version  # 查看版本
+
+windows
+下载ffmpeg构建好的文件
+https://github.com/BtbN/FFmpeg-Builds/releases
+添加环境变量路径 ffmpeg/bin
+```
+## B站开启直播
+```text
+1.登录
+2.个人中心
+3.我的直播
+4.我的直播间
+5.选择直播分类
+6.点击开始直播
+7.复制服务器地址 rtmp://live-push.bilivideo.com/live-bvc/
+8.复制串流密钥 ?streamname=xxx
+9.组成一个链接之后要用 rtmp://live-push.bilivideo.com/live-bvc/?streamname=xxx
+```
+## ffmpeg 推流
+```bash
+# 找到一个视频文件
+# 通过 ffmpeg 推流示例
+ffmpeg -re -stream_loop -1 -i "./demo.mp4" -c copy -f flv "rtmp://live-push.bilivideo.com/live-bvc/?streamname=xxx"
+```
+## 设置后台启动
+```bash
+nohup ffmpeg -re -stream_loop -1 -i "./demo.mp4" -c copy -f flv "rtmp://live-push.bilivideo.com/live-bvc/?streamname=xxx" >>/dev/null 2>&1 </dev/null &
+```
+## 最后
+```text
+如果没用什么问题，打开自己的 B 站直播间地址就能看到推流视频
+```

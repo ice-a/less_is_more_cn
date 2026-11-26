@@ -1,0 +1,31 @@
+---
+title: TTS 语音合成开源项目清单
+description: "开源 TTS 项目的链接清单，按 GitHub 与 Hugging Face 分类，标注是否带 GUI、是否需要 GPU 与中文支持情况。"
+date: 2024-01-01
+tags:
+  - AI 与算法
+  - 音频处理
+  - TTS
+---
+## 说明
+
+本页只收集链接和选型线索，不含安装教程。选型时优先看三点：仓库是否还在维护（archived 的尽量换活跃分支）、是否带 WebUI（决定上手成本）、中文效果与所需显存。训练/微调类项目通常需要独立 CUDA 环境，不要和现有 PyTorch 环境混装。
+
+## GitHub 项目
+
+- [coqui-ai/TTS](https://github.com/coqui-ai/TTS) —— 功能全的经典实现，但仓库已归档（Coqui 停止运营），使用时要留意依赖是否还能正常安装。
+- [mozilla/TTS](https://github.com/mozilla/TTS) —— Mozilla 的 Tacotron 系实现，适合读论文配套代码。
+- [ChatTTS](https://github.com/2noise/ChatTTS/blob/main/docs/cn/README.md) —— 面向对话场景，带 GUI，中文效果好。
+- [Real-Time-Voice-Cloning](https://github.com/CorentinJ/Real-Time-Voice-Cloning) —— 少样本克隆，GUI 界面友好，适合快速试听。
+- [GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS/blob/main/docs/cn/README.md) —— 少量样本即可复刻声音，自带 WebUI，中文社区活跃。
+- [MockingBird](https://github.com/babysor/MockingBird/blob/main/README-CN.md) —— 有 GUI，适合边跑边调。
+
+## Hugging Face 模型
+
+- [suno/bark](https://huggingface.co/suno/bark) —— 有示例代码可复现，需要安装 torch 等依赖，生成速度较慢。
+- [Spark-TTS-0.5B](https://huggingface.co/SparkAudio/Spark-TTS-0.5B) —— 阿里 Spark 系列的 0.5B 权重。
+- [中文 TTS 模型列表](https://huggingface.co/models?pipeline_tag=text-to-speech&language=zh&sort=likes) —— 按热度排序的中文 text-to-speech 模型索引。
+
+### Hugging Face 访问
+
+无法直连 HF 时可用[国内镜像](https://hf-mirror.com/)。

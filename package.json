@@ -1,21 +1,21 @@
 {
   "devDependencies": {
     "markdown-it-mathjax3": "^4.3.2",
+    "pagefind": "^1.6.0",
     "vitepress": "^2.0.0-alpha.12",
-    "vitepress-sidebar": "^1.33.0",
     "vue": "^3.5.22"
   },
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "node scripts/generate-llm-txt.mjs && vitepress build docs",
-    "docs:preview": "vitepress preview docs",
+    "build": "npm run docs:build",
+    "docs:dev": "vitepress dev content",
+    "docs:build": "node scripts/generate-llm-txt.mjs && vitepress build content",
+    "docs:preview": "vitepress preview content",
     "docs:llm": "node scripts/generate-llm-txt.mjs",
     "docs:links": "node scripts/check-links.mjs"
   },
   "dependencies": {
-    "viewerjs": "^1.11.7",
-    "vitepress-plugin-image-viewer": "^1.1.6",
-    "vitepress-plugin-pagefind": "^0.4.15",
-    "vitepress-plugin-rss": "^0.3.2"
+    "@element-plus/icons-vue": "^2.3.2",
+    "@sugarat/theme": "^0.5.33",
+    "element-plus": "^2.14.8"
   }
 }

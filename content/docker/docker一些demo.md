@@ -1,0 +1,68 @@
+---
+title: Docker 一些 demo
+description: "用 Docker 跑各类开源小工具的示例合集，覆盖监控、数据库、导航与网站分析等场景。"
+date: 2025-01-01
+tags:
+  - 基础与环境
+  - Docker
+---
+## hertzbeat
+```bash
+#监控
+docker run -d -p 1157:1157 -p 1158:1158 -e LANG=zh_CN.UTF-8 -e TZ=Asia/Shanghai -v /root/hertzbeat//data:/opt/hertzbeat/data -v /root/hertzbeat/logs:/opt/hertzbeat/logs -v /root/hertzbeat/application.yml:/opt/hertzbeat/config/application.yml -v /root/hertzbeat/sureness.yml:/opt/hertzbeat/config/sureness.yml --restart=always --name hertzbeat tancloud/hertzbeat
+
+# 采集器
+docker run -d -e IDENTITY=custom-collector-name -e MODE=public -e MANAGER_HOST=127.0.0.1 -e MANAGER_PORT=1158 --name hertzbeat-collector tancloud/hertzbeat-collector
+```
+
+## mysql
+```bash
+sudo docker run -itd --restart=always -p 3306:3306 --name mysql -v /home/ubuntu/docker_config/mysql/log:/var/log/mysql -v /home/ubuntu/docker_config/mysql/data:/var/lib/mysql -v /home/ubuntu/docker_config/mysql/conf:/etc/mysql -e MYSQL_ROOT_PASSWORD=YOUR_PASSWORD mysql:8.4
+```
+
+MongoDB 与 Redis 的部署命令已整理到 [Docker 部署常用服务](./docker部署常用服务.md)。
+
+## 域名扫描
+```bash
+docker run -p 3000:3000 lissy93/web-check
+
+```
+[GitHub - Lissy93/web-check: 🕵️‍♂️ All-in-one OSINT tool for analysing any website](https://github.com/Lissy93/web-check)
+
+## 自动解密
+
+不用知道密钥或加密算法，自动尝试解密、解码与破解哈希的命令行工具：
+
+[GitHub - Ciphey/Ciphey: ⚡ Automatically decrypt encryptions without knowing the key or cipher, decode encodings, and crack hashes ⚡](https://github.com/Ciphey/Ciphey)
+
+## bt 聚合
+
+给常见 tracker 站点提供统一 API 的聚合工具：
+
+[GitHub - Jackett/Jackett: API Support for your favorite torrent trackers](https://github.com/Jackett/Jackett)
+
+## 生成别具一格的头像
+
+AI 照片生成项目：
+
+[GitHub - TencentARC/PhotoMaker: PhotoMaker](https://github.com/TencentARC/PhotoMaker)
+
+## i茅台预约
+
+相关讨论帖：
+
+[提示信息 - 吾爱破解 - LCG - LSG |安卓破解|病毒分析|www.52pojie.cn](https://www.52pojie.cn/thread-1890089-1-1.html)
+
+## Mrdoc
+
+MrDoc 的官方 Docker 部署说明：
+
+[官方 Docker 镜像部署 - MrDoc安装手册 - MrDoc觅思文档 - 文档站](https://doc.mrdoc.pro/doc/3958/)
+
+## Onenav
+
+导航页应用，Docker 启动：
+
+```bash
+sudo docker run -itd --name="nav" -p 3000:80 -v /home/dmai/nav:/data/wwwroot/default/data helloz/onenav
+```

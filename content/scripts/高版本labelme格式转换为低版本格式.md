@@ -1,0 +1,67 @@
+---
+title: 高版本 labelme 格式转换为低版本格式
+description: "把高版本 LabelMe 标注格式转换成低版本可用的 JSON 格式。"
+date: 2024-01-01
+tags:
+  - 工具与配置
+  - Python
+---
+## 使用说明
+
+遍历指定目录下的标注 JSON，去掉高版本字段、统一成低版本可识别的结构后写出。
+
+- `detail_data`：原始 JSON 所在目录。
+- `save_path`：转换结果输出目录；留空表示写回原文件（会覆盖原始标注，请先备份或复制一份再跑）。
+- `version` 需要和目标 LabelMe 版本一致（示例里的 `3.16.7` 只适用于低版本 LabelMe，新版本请改成对应版本号）。
+
+```python
+import os
+import json
+detail_data = r'原始JSON所在目录'
+save_path = r'输出目录（留空则原地覆盖）'
+for i in os.listdir(detail_data):
+    if not i.endswith('.json'):
+        continue
+    temp_data = os.path.join(detail_data, i)
+    out_data = os.path.join(save_path, i) if save_path else temp_data
+    print(temp_data)
+    with open(temp_data, "r", encoding='utf8') as f:
+        data = json.loads(f.read())
+    template_data = {
+        "version": "3.16.7",
+        "flags": {},
+        "shapes": [],
+        "lineColor": [
+            0,
+            255,
+            0,
+            128
+        ],
+        "fillColor": [
+            255,
+            0,
+            0,
+            128
+        ],
+        "imagePath": data['imagePath'],
+        "imageHeight": data['imageHeight'],
+        "imageWidth": data['imageWidth'],
+        "imageData": data['imageData'],
+    }
+    shapes = []
+    for j in data['shapes']:
+        dict_point = {
+            "label": j['label'],
+            "line_color": None,
+            "fill_color": None,
+            "points": j['points'],
+            "shape_type": j['shape_type'],
+            "flags": {}
+        }
+
+        shapes.append(dict_point)
+    template_data['shapes'] = shapes
+    with open(out_data, "w", encoding='utf-8') as ff:
+        ff.write(json.dumps(template_data, ensure_ascii=False, indent=4))
+
+```

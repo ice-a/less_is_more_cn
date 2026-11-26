@@ -1,0 +1,25 @@
+---
+title: 远程工具连接 Ubuntu 一直 100 不动了
+description: "远程桌面连接 Ubuntu 一直卡在 100% 时的排查思路，以及关闭 Wayland 的做法。"
+date: 2024-08-12
+tags:
+  - 基础与环境
+  - Linux
+---
+## 修改配置文件关闭 Wayland
+
+```bash
+sudo vim /etc/gdm3/custom.conf
+```
+
+找到 `#WaylandEnable=false`，去掉行首的 `#` 让它生效：
+
+```text
+WaylandEnable=false
+```
+
+保存后重启显示管理器即可：
+
+```bash
+sudo systemctl restart gdm3
+```

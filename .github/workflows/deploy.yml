@@ -1,4 +1,4 @@
-name: Deploy VitePress to GitHub Pages
+name: Deploy VitePress site to Pages
 
 on:
   push:
@@ -19,19 +19,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: npm
       - run: npm ci
-      - name: Build
-        run: npm run docs:build
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - run: npm run docs:build
+      - uses: actions/jekyll-build-pages@v1
         with:
-          path: docs/.vitepress/dist
+          source: ./content/.vitepress/dist
+          destination: ./_site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -39,6 +42,24 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
+
+  # 部署完成后把 sitemap 推送给搜索引擎
+  # 需要的 secrets（不配就自动跳过对应渠道）：
+  #   INDEXNOW_KEY / INDEXNOW_KEY_FILE
+  #   BING_API_KEY / GOOGLE_SA_JSON / BAIDU_TOKEN
+  seo:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/seo-push.mjs content/.vitepress/dist
+        env:
+          SEO_HOST: ice-a.github.io
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_KEY_FILE: ${{ secrets.INDEXNOW_KEY_FILE }}
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+          BAIDU_SITE: ice-a.github.io

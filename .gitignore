@@ -29,10 +29,9 @@ dist-ssr
 !.env.example
 
 # Cache
-# 注意：这些路径带斜杠，会锚定到 .gitignore 所在目录，所以要写全 docs 前缀
-docs/.vitepress/cache
-docs/.vitepress/dist
-# docs/.vitepress/data/*.json 依赖 Navigation.vue 的静态 import，必须随仓库一起提交
+# 注意：这些路径带斜杠，会锚定到 .gitignore 所在目录，所以要写全 content 前缀
+content/.vitepress/cache
+content/.vitepress/dist
 
 # 本地维护脚本（一次性排查工具，不随仓库提交）
 scripts/*
@@ -42,6 +41,8 @@ scripts/*
 !scripts/check-links.mjs
 # 构建产物与跳转页/llm.txt 一致性校验，需要入库
 !scripts/final-verify.mjs
+# SEO 推送脚本由 GitHub Actions 的 seo job 调用，需要入库
+!scripts/seo-push.mjs
 
 # Package manager files
 .yarn-integrity
