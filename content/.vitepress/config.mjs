@@ -250,6 +250,16 @@ gtag('js', new Date());`,
           ],
           // 百度搜索资源平台站点验证
           ['meta', { name: 'baidu-site-verification', content: 'codeva-3TbUdoBDVj' }],
+          // Google AdSense（发布者账号关联）
+          ['meta', { name: 'google-adsense-account', content: 'ca-pub-8097273255284826' }],
+          [
+            'script',
+            {
+              async: '',
+              crossorigin: 'anonymous',
+              src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8097273255284826',
+            },
+          ],
         ]
       : []),
   ],
