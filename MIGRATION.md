@@ -12,7 +12,7 @@
 | 构建 | `npm run docs:build` | 相同（新增 `npm run build` 别名，给 CI 用） |
 | 预览 | `npm run docs:preview` | 相同 |
 | URL 形态 | `.html` 结尾（cleanUrls=false） | 保持不变 |
-| base | `/less_is_more_cn/` | 默认不变；换 Cloudflare / 自定义域名时由 `CF_SITE_BASE` 覆盖 |
+| base | `/`（生产域名根路径） | 默认值即当前部署；换域名时用 `CF_SITE_BASE` 覆盖 |
 
 > 旧的 `docs/` 已整体删除，历史内容可在 git 历史（提交 `b3750b9`）里取回。
 
@@ -100,19 +100,24 @@ Cloudflare 控制台创建 Pages 项目时选「连接到 Git」，按下表填�
 | 构建输出目录 | `content/.vitepress/dist` |
 | 根目录（高级） | 留空（不要改，npm 要在仓库根执行） |
 
-环境变量（「保存并部署」前的「环境变量(高级)」）：
+环境变量（「保存并部署」前的「环境变量(高级)」）——**现在留空即可**，代码里的默认值就是当前生产配置；换域名时再覆盖：
 
-| 变量 | 值 | 说明 |
+| 变量 | 默认值 | 说明 |
 | --- | --- | --- |
+| `CF_SITE_URL` | `https://020417.xyz` | 影响 sitemap / canonical / og:url / RSS / llm.txt |
 | `CF_SITE_BASE` | `/` | 自定义域名 / pages.dev 都是根路径 |
-| `CF_SITE_URL` | `https://你的域名`（或 `https://less-is-more-cn.pages.dev`） | 影响 sitemap / canonical / og:url |
 | `NODE_VERSION` | `20` | 可选，避免 Cloudflare 默认 Node 版本过旧 |
+
+> 不配环境变量也能得到正确结果：config.mjs、gen-robots.mjs、generate-llm-txt.mjs、seo-push.mjs 的默认值已统一为 `https://020417.xyz` + `/`。
+> 换域名/换回 GitHub Pages 时再用 `CF_SITE_URL` / `CF_SITE_BASE` 覆盖即可。
 
 `docs:build` 已串好 `gen-robots.mjs` → `generate-llm-txt.mjs` → `vitepress build content`，robots.txt 与 llm.txt 都会自动产出。
 
 构建由 Cloudflare 直连完成，仓库里不再需要任何部署 workflow。SEO 推送是唯一保留的 Actions：`.github/workflows/seo-daily.yml`（每 3 天从线上 sitemap 推一次，Variables 配 `SITE_PREFIX=/` 即可，站点域名由脚本从 sitemap 自动推导，`SEO_HOST` 可不填），也可以本地手动跑上面的命令。需要的 Secrets 只有 `INDEXNOW_KEY`（其余渠道按需）。
 
-共同前提：站点地址与 base 通过 `CF_SITE_URL` / `CF_SITE_BASE` 注入（[config.mjs](</C:\Users\lee\Desktop\opensourcegithub\less_is_more_cn\content\.vitepress\config.mjs>) 顶部读取，origin 由 URL 推导），跳转页目标在构建时按当前 base 归一化。自定义域名要在 Pages 项目里绑定且 DNS 记录保持代理；IndexNow 的 key 文件必须出现在**域名根目录**，换域名后需重新验证。
+共同前提：站点地址与 base 由 [config.mjs](</C:\Users\lee\Desktop\opensourcegithub\less_is_more_cn\content\.vitepress\config.mjs>) 顶部读取（默认 `https://020417.xyz` + `/`，可用 `CF_SITE_URL` / `CF_SITE_BASE` 覆盖），origin 由 URL 推导，跳转页目标在构建时按当前 base 归一化。自定义域名要在 Pages 项目里绑定且 DNS 记录保持代理；IndexNow 的 key 文件必须出现在**域名根目录**，换域名后需重新验证。
+
+> 部署排障记录：给 Pages 放 `_worker.js` 会把静态资源切到 Worker 模式，之前用 `fetch(request)` 透传会自循环导致自定义域 503 `error code: 1019`；现在改为 `env.ASSETS.fetch(request)`（见 [content/public/_worker.js](</C:\Users\lee\Desktop\opensourcegithub\less_is_more_cn\content\public\_worker.js>)）。另外 `.html` 路径返回 308 是 Pages 把扩展名规范化的正常行为，不是故障。
 
 ## 六、已知差异（不影响使用，先说明）
 
