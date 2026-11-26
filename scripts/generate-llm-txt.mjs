@@ -19,8 +19,9 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const contentDir = join(root, 'content')
 const outPath = join(contentDir, 'public', 'llm.txt')
 
-const SITE_URL = 'https://ice-a.github.io/less_is_more_cn'
-const BASE = '/less_is_more_cn/'
+// 与 content/.vitepress/config.mjs 的默认值保持一致（生产域名 020417.xyz，根路径）
+const SITE_URL = process.env.CF_SITE_URL || 'https://020417.xyz'
+const BASE = process.env.CF_SITE_BASE || '/'
 const TITLE = '爱喝水的木子'
 const DESC = '存在即合理'
 

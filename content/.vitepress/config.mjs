@@ -8,13 +8,15 @@ import { CONTENT_MAP } from './content-map.mjs'
 
 // ============================================================
 // 站点基础信息（沿用旧站）
-// 部署到 Cloudflare Pages / 自有域名时，构建前传环境变量即可切换：
-//   CF_SITE_URL=https://example.com   （默认 GitHub Pages 地址）
-//   CF_SITE_BASE=/                    （默认 /less_is_more_cn/）
+// 当前生产目标是 Cloudflare Pages 自定义域名（见 MIGRATION.md），默认值按它写死，
+// 这样不配环境变量也能得到正确的 canonical / og:url / sitemap / RSS 地址；
+// 换域名时用环境变量覆盖即可（GitHub Pages 用法同理）：
+//   CF_SITE_URL=https://ice-a.github.io/less_is_more_cn
+//   CF_SITE_BASE=/less_is_more_cn/
 // origin 由 SITE_URL 推导；content-map.mjs 里存的路径前缀固定为 /less_is_more_cn，
 // 下面 writeRedirectPages() 会按当前 base 归一化。
-const SITE_URL = process.env.CF_SITE_URL || 'https://ice-a.github.io/less_is_more_cn'
-const SITE_BASE = process.env.CF_SITE_BASE || '/less_is_more_cn/'
+const SITE_URL = process.env.CF_SITE_URL || 'https://020417.xyz'
+const SITE_BASE = process.env.CF_SITE_BASE || '/'
 const SITE_ORIGIN = new URL(SITE_URL).origin
 /** content-map.mjs / README.md 映射表里写死的旧前缀 */
 const OLD_PREFIX = '/less_is_more_cn'

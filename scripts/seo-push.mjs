@@ -27,13 +27,13 @@ let HOST = process.env.SEO_HOST || ''
 //   node scripts/seo-push.mjs content/.vitepress/dist
 //   node scripts/seo-push.mjs https://example.com/sitemap.xml
 const SITEMAP_SOURCE = process.argv[2] || 'content/.vitepress/dist'
-const SITE_PREFIX = (process.env.SITE_PREFIX || '/less_is_more_cn').replace(/\/$/, '')
+const SITE_PREFIX = (process.env.SITE_PREFIX || '').replace(/\/$/, '')
 /** 站点根（协议 + 域名 + 前缀）；前缀随部署 base 变化，域名从 sitemap 推导 */
 let SITE_ROOT = ''
 
 function ensureSiteRoot(urls) {
   if (!SITE_ROOT) {
-    const origin = urls.length ? new URL(urls[0]).origin : `https://${HOST || 'ice-a.github.io'}`
+    const origin = urls.length ? new URL(urls[0]).origin : `https://${HOST || '020417.xyz'}`
     HOST = HOST || new URL(origin).host
     SITE_ROOT = `${origin}${SITE_PREFIX}`
   }
