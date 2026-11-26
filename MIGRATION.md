@@ -25,10 +25,10 @@
 | `base` / `cleanUrls: false` | 顶层同名字段 | ✅ 保留；base 可用 `CF_SITE_BASE` 覆盖 |
 | `title` / `description` | 顶层同名字段 | ✅ 原样保留 |
 | `ignoreDeadLinks: true` | 顶层 | ✅ 保留 |
-| `nav` 6 项 | `themeConfig.nav` | ✅ 保留；「常用导航」地址由 `/00navigation` 改为 `/navigation` |
+| `nav` 6 项 | `themeConfig.nav` | ✅ 现为 5 项：首页 / 时间线 / 常用导航（`/navigation`）/ 订阅转换 / 关于；按你的要求删除了 Markdown 编辑器、动作图鉴 |
 | `sidebar: generateSidebar(...)` | **已删除** | ✅ 主题用右侧「推荐文章」栏替代；想恢复左侧目录栏需设 `recommend: false` 并自配 sidebar。`vitepress-sidebar` 依赖已卸载 |
 | `socialLinks` 4 个（含 B站/掘金/知乎 SVG） | `social-icons.mjs` → `themeConfig.socialLinks` | ✅ 逐字原样迁移 |
-| `footer.message` / `copyright` / ICP | `getThemeConfig({ footer })` 的 `message`、`copyright`、`icpRecord` | ✅ 迁移，ICP 交给主题的备案组件渲染 |
+| `footer.message` / `copyright` / ICP | `getThemeConfig({ footer })` + `theme/style.css` | ✅ 已按你的要求移除：`footer.version:false`（版权/备案注释保留备用）+ `footer.blog-footer { display:none }` |
 | `search: { provider: 'local' }` | `getThemeConfig({ search })`，主题内置 pagefind | ✅ 中文文案沿用旧值，`forceLanguage: 'zh-cn'` |
 | `lastUpdated.text` + `formatOptions` | `themeConfig.lastUpdated` | ✅ 保留 |
 | `docFooter` 上一个 / 下一个 | `themeConfig.docFooter` | ✅ 保留 |
@@ -45,17 +45,19 @@
 | 页面类型 | 六个分类 `index.md` 落地页 | 变为 **9 个功能分组** index（ai/docker/life/resources/reverse/scripts/system/tools/web），均加 `hidden: true` |
 | `docs/public/llm.txt` | `scripts/generate-llm-txt.mjs` | ✅ 扫描 `content/**`，输出 `content/public/llm.txt`（88 条） |
 | —— | `scripts/gen-robots.mjs` | 新增：按 `CF_SITE_URL` 生成 `content/public/robots.txt` |
+| —— | `scripts/gen-timeline.mjs` | 新增：构建前生成 `content/timeline.md`（时间线页） |
 
 ## 三、已按你的决定落地的设置（2026-11-26）
 
 | 项 | 落地情况 |
 | --- | --- |
 | 评论系统 | ✅ giscus：`ice-a/blog-comments` / `R_kgDOV8Ylqg` / Announcements `DIC_kwDOV8Ylqs4DL_hO`，pathname 映射、底部输入框、中文。需到该仓库 **Settings → Features** 打开 Discussions，并在 giscus.app 授权登录一次。 |
-| 公告弹窗 | ✅ `popover.title: '公告'` + 迁移说明，`duration: -1`（只显示一次）。 |
+| 公告弹窗 | ⏸ 暂时移除：`popover` 整段已注释保留在 config.mjs，取消注释即恢复。 |
+| 时间线页 | ✅ 新增 `content/timeline.md`，由 `scripts/gen-timeline.mjs` 按 frontmatter `date` 倒序生成（88 篇，同年分组），用主题内置的 `::: timeline` 语法渲染；已加入顶部导航，页面 `hidden:true` 不进文章列表/RSS/llm.txt。 |
 | 首页 logo | ✅ `home.logo = 'https://avatars.githubusercontent.com/ice-a'`。 |
 | 首页标签 | ✅ `homeTags: true`。 |
-| 三个站外导航 | ✅ 保留（Markdown 编辑器 / 动作图鉴 / 订阅转换）。 |
-| 统计脚本 | ✅ Google Tag Manager `GTM-5PLVKK4J`；Bing 不挂 UET/msvalidate，收录走 IndexNow。 |
+| 站外导航 | ✅ 仅保留「订阅转换」（https://sub.020417.xyz/），其余两项已移除。 |
+| 统计脚本 | ✅ Google Tag Manager `{{SECRET_9efjwufx}}` + Microsoft Clarity `zjk1n98mr2`（仅生产环境注入）；Bing 不挂 UET/msvalidate，收录走 IndexNow。 |
 | RSS | ✅ 随构建生成 `feed.rss`（隐藏页除外）。 |
 | 右侧推荐栏 | ✅ 保留主题默认。 |
 | 部署 | ✅ GitHub Pages 走 `.github/workflows/deploy.yml`；Cloudflare 见第五节。 |
@@ -106,7 +108,7 @@ Cloudflare 控制台创建 Pages 项目时选「连接到 Git」，按下表填�
 
 `docs:build` 已串好 `gen-robots.mjs` → `generate-llm-txt.mjs` → `vitepress build content`，robots.txt 与 llm.txt 都会自动产出。
 
-这种方式下 `deploy-cloudflare.yml` 和 `deploy.yml` 都不用启用；SEO 推送用 `seo-daily.yml`（每 3 天从线上 sitemap 推一次，Variables 配 `SEO_HOST`、`SITE_PREFIX=/` 即可），也可以本地手动跑上面的命令。
+这种方式下 `deploy-cloudflare.yml` 和 `deploy.yml` 都不用启用；SEO 推送用 `seo-daily.yml`（每 3 天从线上 sitemap 推一次，Variables 配 `SITE_PREFIX=/` 即可，站点域名由脚本从 sitemap 自动推导，`SEO_HOST` 可不填），也可以本地手动跑上面的命令。
 
 ### 方式 B：GitHub Actions 调 wrangler（备用）
 

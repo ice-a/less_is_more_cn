@@ -1,7 +1,7 @@
 # 定时把 sitemap 推送给搜索引擎（IndexNow / Bing / Google / 百度）
 # 部署方式无关：直接从线上 sitemap 读 URL，因此 Cloudflare Pages 的原生 Git 构建也能用。
 #
-# Variables：SEO_HOST、SITE_PREFIX（GitHub Pages 用 /less_is_more_cn，根目录部署用 /）
+# Variables：SEO_SITEMAP_URL（默认 Cloudflare Pages 生产域名）、SITE_PREFIX（根目录部署为 /）
 # Secrets：INDEXNOW_KEY（可选 INDEXNOW_KEY_FILE）、BING_API_KEY、GOOGLE_SA_JSON、BAIDU_TOKEN、BAIDU_SITE
 name: SEO push
 
@@ -23,10 +23,11 @@ jobs:
           node-version: 20
       - name: Push URLs to search engines
         continue-on-error: true
-        run: node scripts/seo-push.mjs https://${{ vars.SEO_HOST || 'ice-a.github.io' }}${{ vars.SITE_PREFIX || '/less_is_more_cn' }}/sitemap.xml
+        # 默认指向 Cloudflare Pages 生产域名（根目录部署）；换域名时设置 Variable SEO_SITEMAP_URL
+        run: node scripts/seo-push.mjs ${{ vars.SEO_SITEMAP_URL || 'https://020417.xyz/sitemap.xml' }}
         env:
-          SEO_HOST: ${{ vars.SEO_HOST || 'ice-a.github.io' }}
-          SITE_PREFIX: ${{ vars.SITE_PREFIX || '/less_is_more_cn' }}
+          # 站点域名由脚本从 sitemap 推导；SITE_PREFIX 仅用于拼 key 文件地址，根目录部署为 /
+          SITE_PREFIX: ${{ vars.SITE_PREFIX || '/' }}
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
           INDEXNOW_KEY_FILE: ${{ secrets.INDEXNOW_KEY_FILE }}
           BING_API_KEY: ${{ secrets.BING_API_KEY }}

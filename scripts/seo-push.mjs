@@ -22,14 +22,22 @@ import { readFileSync } from 'node:fs'
 import { createHash, createSign } from 'node:crypto'
 import { resolve } from 'node:path'
 
-const HOST = process.env.SEO_HOST || 'ice-a.github.io'
+let HOST = process.env.SEO_HOST || ''
 // 第二个参数可以是本地 dist 目录，也可以是线上 sitemap 地址：
 //   node scripts/seo-push.mjs content/.vitepress/dist
 //   node scripts/seo-push.mjs https://example.com/sitemap.xml
 const SITEMAP_SOURCE = process.argv[2] || 'content/.vitepress/dist'
 const SITE_PREFIX = (process.env.SITE_PREFIX || '/less_is_more_cn').replace(/\/$/, '')
-/** 站点根（协议 + 域名 + 前缀）；前缀随部署 base 变化 */
-let SITE_ROOT = `https://${HOST}${SITE_PREFIX}`
+/** 站点根（协议 + 域名 + 前缀）；前缀随部署 base 变化，域名从 sitemap 推导 */
+let SITE_ROOT = ''
+
+function ensureSiteRoot(urls) {
+  if (!SITE_ROOT) {
+    const origin = urls.length ? new URL(urls[0]).origin : `https://${HOST || 'ice-a.github.io'}`
+    HOST = HOST || new URL(origin).host
+    SITE_ROOT = `${origin}${SITE_PREFIX}`
+  }
+}
 
 function log(...args) {
   console.log('[seo-push]', ...args)
@@ -167,7 +175,8 @@ async function pushBaidu(urls) {
 }
 
 const urls = await readSitemap()
-log(`从 sitemap 读到 ${urls.length} 个 URL`)
+ensureSiteRoot(urls)
+log(`从 sitemap 读到 ${urls.length} 个 URL，站点根 ${SITE_ROOT}`)
 
 let failed = 0
 for (const [name, fn] of [

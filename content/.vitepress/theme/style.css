@@ -1,0 +1,4 @@
+/* 隐藏主题页脚条（版本信息 / 版权 / 备案行已按需移除） */
+footer.blog-footer {
+  display: none !important;
+}

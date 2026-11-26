@@ -50,19 +50,16 @@ const blogTheme = getThemeConfig({
   // 首页按标签聚合的入口
   homeTags: true,
 
-  // 顶部公告弹窗（duration：-1 只显示一次；>=0 每次都显示后自动消失；<0 不自动消失）
-  popover: {
-    title: '公告',
-    body: [
-      {
-        type: 'text',
-        content:
-          '本站已用 **@sugarat/theme** 重建，旧地址会自动跳转到新页面。发现失效链接请在评论区或 GitHub 提 issue。',
-      },
-    ],
-    duration: -1,
-    reopen: true,
-  },
+  // 顶部公告弹窗：暂时移除。需要时取消下面注释即可恢复
+  // （duration：-1 只显示一次；>=0 每次都显示后自动消失；<0 不自动消失）
+  // popover: {
+  //   title: '公告',
+  //   body: [
+  //     { type: 'text', content: '本站已用 **@sugarat/theme** 重建，旧地址会自动跳转到新页面。' },
+  //   ],
+  //   duration: -1,
+  //   reopen: true,
+  // },
 
   // giscus 评论（基于 GitHub Discussions）
   comment: {
@@ -90,15 +87,11 @@ const blogTheme = getThemeConfig({
     empty: '暂无推荐',
   },
 
-  // 页脚：icpRecord / securityRecord 由主题渲染成带图标的备案行
+  // 页脚：按你的要求移除主题版本信息与版权 / 备案行（备案信息保留在下方注释，需要时再打开）
   footer: {
-    message: 'Released under the MIT License.',
-    copyright: 'Copyright © 2023-present 爱喝水的木子',
-    icpRecord: {
-      name: '豫ICP备2021025932号-1',
-      link: 'https://beian.miit.gov.cn/',
-    },
-    // 公安备案（没有就整段删掉）
+    version: false,
+    // copyright: 'Copyright © 2023-present 爱喝水的木子',
+    // icpRecord: { name: '豫ICP备2021025932号-1', link: 'https://beian.miit.gov.cn/' },
     // securityRecord: { name: '豫公网安备 xxxxxxxx 号', link: 'https://www.beian.gov.cn/' },
   },
 
@@ -112,10 +105,10 @@ const blogTheme = getThemeConfig({
     forceLanguage: 'zh-cn',
   },
 
-  // RSS：baseUrl 填域名根（不带 base），link 用完整站点地址
+  // RSS：baseUrl 只给域名根（插件会再拼 site.base），随部署域名自动切换
   RSS: {
     title: 'WIKI',
-    baseUrl: 'https://ice-a.github.io',
+    baseUrl: SITE_ORIGIN,
     link: SITE_URL,
     description: '存在即合理',
     copyright: `版权所有 © 2024-${YEAR} 爱喝水的木子[rxht]`,
@@ -236,14 +229,24 @@ export default defineConfig({
     ['meta', { name: 'robots', content: 'index, follow, max-image-preview:large' }],
     ...(process.env.NODE_ENV === 'production'
       ? [
-          // Google Tag Manager（GTM-5PLVKK4J）
-          ['script', { async: '', src: 'https://www.googletagmanager.com/gtm.js?id=GTM-5PLVKK4J' }],
+          // Google Tag Manager（{{SECRET_9efjwufx}}）
+          ['script', { async: '', src: 'https://www.googletagmanager.com/gtm.js?id={{SECRET_9efjwufx}}' }],
           [
             'script',
             {},
             `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());`,
+          ],
+          // Microsoft Clarity（zjk1n98mr2）
+          [
+            'script',
+            {},
+            `(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "zjk1n98mr2");`,
           ],
         ]
       : []),
@@ -298,9 +301,8 @@ gtag('js', new Date());`,
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
+      { text: '时间线', link: '/timeline' },
       { text: '常用导航', link: '/navigation' },
-      { text: 'Markdown 编辑器', link: 'https://md.lideshan.cn/' },
-      { text: '动作图鉴', link: 'https://sport.hlds.fun/' },
       { text: '订阅转换', link: 'https://sub.020417.xyz/' },
       { text: '关于', link: '/about' },
     ],

@@ -45,6 +45,8 @@ scripts/*
 !scripts/seo-push.mjs
 # robots.txt 生成脚本随构建执行，需要入库
 !scripts/gen-robots.mjs
+# 时间线页面由构建脚本生成，需要入库
+!scripts/gen-timeline.mjs
 
 # Package manager files
 .yarn-integrity
