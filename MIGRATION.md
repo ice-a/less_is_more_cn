@@ -60,7 +60,7 @@
 | 统计脚本 | ✅ Google Tag Manager `{{SECRET_9efjwufx}}` + Microsoft Clarity `zjk1n98mr2`（仅生产环境注入）；Bing 不挂 UET/msvalidate，收录走 IndexNow。 |
 | RSS | ✅ 随构建生成 `feed.rss`（隐藏页除外）。 |
 | 右侧推荐栏 | ✅ 保留主题默认。 |
-| 部署 | ✅ GitHub Pages 走 `.github/workflows/deploy.yml`；Cloudflare 见第五节。 |
+| 部署 | ✅ 只用 Cloudflare Pages 连 GitHub 仓库构建（见第五节）；`.github/workflows/` 下只保留 `seo-daily.yml`。 |
 | SEO 推送 | ✅ `scripts/seo-push.mjs` + `.github/workflows/seo-daily.yml`（定时从线上 sitemap 推送，与部署方式无关）。 |
 
 ## 四、SEO 与搜索引擎收录（自动推送方案）
@@ -108,20 +108,7 @@ Cloudflare 控制台创建 Pages 项目时选「连接到 Git」，按下表填�
 
 `docs:build` 已串好 `gen-robots.mjs` → `generate-llm-txt.mjs` → `vitepress build content`，robots.txt 与 llm.txt 都会自动产出。
 
-这种方式下 `deploy-cloudflare.yml` 和 `deploy.yml` 都不用启用；SEO 推送用 `seo-daily.yml`（每 3 天从线上 sitemap 推一次，Variables 配 `SITE_PREFIX=/` 即可，站点域名由脚本从 sitemap 自动推导，`SEO_HOST` 可不填），也可以本地手动跑上面的命令。
-
-### 方式 B：GitHub Actions 调 wrangler（备用）
-
-`.github/workflows/deploy-cloudflare.yml` 保留，需要的 Secrets / Variables：
-
-| 项 | 位置 | 值 |
-| --- | --- | --- |
-| `CLOUDFLARE_API_TOKEN` | Secrets | API Token（权限 `Account → Cloudflare Pages → Edit`） |
-| `CLOUDFLARE_ACCOUNT_ID` | Secrets | Cloudflare 账号 ID |
-| `CF_PAGES_PROJECT` | Variables | Pages 项目名，默认 `less-is-more-cn` |
-| `CF_SITE_URL` / `CF_SITE_BASE` | Variables | 自定义域名 / `/` |
-| `SITE_PREFIX` | Variables | 根目录部署 `/`；GitHub Pages 为 `/less_is_more_cn` |
-| `INDEXNOW_KEY` | Secrets | IndexNow 密钥 |
+构建由 Cloudflare 直连完成，仓库里不再需要任何部署 workflow。SEO 推送是唯一保留的 Actions：`.github/workflows/seo-daily.yml`（每 3 天从线上 sitemap 推一次，Variables 配 `SITE_PREFIX=/` 即可，站点域名由脚本从 sitemap 自动推导，`SEO_HOST` 可不填），也可以本地手动跑上面的命令。需要的 Secrets 只有 `INDEXNOW_KEY`（其余渠道按需）。
 
 共同前提：站点地址与 base 通过 `CF_SITE_URL` / `CF_SITE_BASE` 注入（[config.mjs](</C:\Users\lee\Desktop\opensourcegithub\less_is_more_cn\content\.vitepress\config.mjs>) 顶部读取，origin 由 URL 推导），跳转页目标在构建时按当前 base 归一化。自定义域名要在 Pages 项目里绑定且 DNS 记录保持代理；IndexNow 的 key 文件必须出现在**域名根目录**，换域名后需重新验证。
 
