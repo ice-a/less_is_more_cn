@@ -23,15 +23,27 @@ import { createHash, createSign } from 'node:crypto'
 import { resolve } from 'node:path'
 
 const HOST = process.env.SEO_HOST || 'ice-a.github.io'
-const BASE = `https://${HOST}/less_is_more_cn`
-const distDir = resolve(process.argv[2] || 'content/.vitepress/dist')
+// 第二个参数可以是本地 dist 目录，也可以是线上 sitemap 地址：
+//   node scripts/seo-push.mjs content/.vitepress/dist
+//   node scripts/seo-push.mjs https://example.com/sitemap.xml
+const SITEMAP_SOURCE = process.argv[2] || 'content/.vitepress/dist'
+const SITE_PREFIX = (process.env.SITE_PREFIX || '/less_is_more_cn').replace(/\/$/, '')
+/** 站点根（协议 + 域名 + 前缀）；前缀随部署 base 变化 */
+let SITE_ROOT = `https://${HOST}${SITE_PREFIX}`
 
 function log(...args) {
   console.log('[seo-push]', ...args)
 }
 
 async function readSitemap() {
-  const xml = readFileSync(resolve(distDir, 'sitemap.xml'), 'utf8')
+  let xml
+  if (/^https?:\/\//i.test(SITEMAP_SOURCE)) {
+    const res = await fetch(SITEMAP_SOURCE)
+    if (!res.ok) throw new Error(`拉取 sitemap 失败: ${SITEMAP_SOURCE} -> ${res.status}`)
+    xml = await res.text()
+  } else {
+    xml = readFileSync(resolve(SITEMAP_SOURCE, 'sitemap.xml'), 'utf8')
+  }
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim())
   return [...new Set(urls)]
 }
@@ -57,7 +69,7 @@ async function pushIndexNow(urls) {
   const res = await postJson('https://api.indexnow.org/indexnow', {
     host: HOST,
     key,
-    keyLocation: process.env.INDEXNOW_KEY_FILE || `${BASE}/indexnow-${key}.txt`,
+    keyLocation: process.env.INDEXNOW_KEY_FILE || `${SITE_ROOT}/indexnow-${key}.txt`,
     urlList: urls,
   })
   log(`IndexNow: 已提交 ${urls.length} 条 -> ${res}`)
